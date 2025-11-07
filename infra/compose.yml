@@ -1,0 +1,19 @@
+services:
+  mysql-server-80:
+    image: mysql/mysql-server
+    ports:
+      - "3308:3306"
+  python-app:
+    image: python:3.12-alpine
+    container_name: python-envie-me-o-token
+    depends_on:
+      - mysql-server-80
+    working_dir: /api
+    volumes:
+      - ..:/api
+    command: >
+      sh -c "
+            python -m venv api/.venv && 
+            chmod -x api/.venv/bin/activate &&
+            source api/.venv/bin/activate &&
+            pip install -r api/requirements.txt"

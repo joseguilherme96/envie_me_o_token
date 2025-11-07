@@ -1,0 +1,26 @@
+{
+  "name": "envia_me_o_token",
+  "version": "1.0.0",
+  "description": "Interface que será integrada ao RPA, a tela será responsável por capturar o token do usuário e enviar o token para que o RPA possa processar  autorização do usuário no sistema autorizador de token automaticamente via selenium para que ele possa realizar a consulta sem a necessidade da recepcionista realizar a mesma ação.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"npm run services:up && cd ../api && flask run && cd ../interface && npm install",
+    "services:up":"docker compose -f ../infra/compose.yml up -d",
+    "services:stop":"docker compose -f ../infra/compose.yml stop",
+    "services:down":"docker compose -f ../infra/compose.yml down"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joseguilherme96/envie_me_o_token.git"
+  },
+  "author": "José Guilherme",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/joseguilherme96/envie_me_o_token/issues"
+  },
+  "homepage": "https://github.com/joseguilherme96/envie_me_o_token#readme",
+  "dependencies": {
+    "webpack": "^5.102.1"
+  }
+}
