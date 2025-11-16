@@ -1,6 +1,29 @@
 # Envie Me O Token -  Em desenvolvimento....
 
-Será criada uma interface para o paciente possa enviar o token gerado acionando um RPA automaticamente para inserir este token gerado em um sistema paralelo de autorizador de token que será gerenciado por selenium, assim o token será inserido automaticamente no sistema sem a necessidade da recepicionista inserir o token de forma manual ganhando agilidade no atendimento do paciente.
+Será criada uma interface para que o paciente possa enviar o token gerado em seu dispositivo, ao enviar , será acionando um RPA que enviará uma solicitação a um web service SOAP afim de autorizar a sessão para o paciente realizar o tratamento sem a necessidade da recepicionista inserir o token de forma manual ganhando agilidade no atendimento do paciente.
+
+# Objetivo deste projeto
+
+Além de resolver um problema real, tem finalidade também de aplicar os conhecimentos já adiquiridos, como também ganhar novas experiências com os conhecimentos adiquiridos.
+
+## O que este projeto espera alcançar.
+- Uma análise profundas de documentações técnicas, desenvover com planejamento co  abertura de issues, desenvolver e entregar uma solução real.
+- Entregar Fluxogramas de 2 RPAs(Geração de link automatico para usuário enviar o token e processo automatico de autorização do paciente para tratamento) que serão executados estabelecendo uma visão ampla de todo seu funcionamento.
+- Compreensão de integração com web service SOAP
+- Compreensão e Manipulação de arquivos/schemas XML.
+- Compressão de leituras de documentação técnicas.
+- Seguir padrões de comunicação estabelecidos pela ANS seguindo o padrão `TISS - Troca de Informação na Saúde Suplementar`
+- Desenvolver o RPA orientado as testes `TDD - Test Driven Develoment` com `Pytest`
+- - Testes conceituais
+- - Testes de Zombaria(Mocks)
+- - Criar testes unitários
+- - Criar testes de integração
+- - Desenvolver a API que receberá o token enviado do usuário e os códigos de processamento dos RPAs.
+- Trabalhar com `ORM - Object Relational Mapping` com `Flask-Alchemy`
+- Geração de visualização gráfica do `DER - Diagrama Entidade-Relacionamento` com `Graphviz`
+- Usufruir de Migrações com `Flask-Migration`
+- Trabalhar com ambientes de `Teste`, `Homologação` e `Produção`.
+- Desenvolver uma tela simples com `Webpack + Vue.js + Vuetify` que acionará o RPA.
 
 # Execução do projeto via docker
 
