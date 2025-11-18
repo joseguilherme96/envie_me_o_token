@@ -15,7 +15,7 @@ class ExecucaoSPSADT(db.Model):
     solicitante : Mapped["Solicitante"] = relationship(back_populates="execucao_spsadt")
     operadora_registro_ans : Mapped[int] = mapped_column(ForeignKey("operadora.registro_ans"))
     operadora: Mapped["Operadora"] = relationship(back_populates="execucao_spsadt")
-    #login = Mapped[str] = mapped_column(ForeignKey("users.login"))
+    login : Mapped[str] = mapped_column(ForeignKey("users.login"))
     users : Mapped["Users"] = relationship(back_populates="execucao_spsadt")
     indicacao_clinica : Mapped[bool]
     indicacao_acidente : Mapped[int] = mapped_column(comment="Ver tiss/schema.")
