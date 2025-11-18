@@ -4,7 +4,7 @@ import os
 from dotenv import load_dotenv
 from schema.generate_schema import generate_schema
 
-def test_deve_criar_schema_banco_de_dados(capfd,criar_banco_de_dados):
+def test_deve_criar_imagem_do_schema_banco_de_dados(capfd,criar_banco_de_dados):
 
     generate_schema()
 
