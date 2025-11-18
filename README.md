@@ -25,6 +25,35 @@ Além de resolver um problema real, tem finalidade também de aplicar os conheci
 - Trabalhar com ambientes de `Teste`, `Homologação` e `Produção`.
 - Desenvolver uma tela simples com `Webpack + Vue.js + Vuetify` que acionará o RPA.
 
+# Fluxograma do RPA
+
+Serão desenvolvidos 2 RPAs :
+
+- O primeiro RPA com detalhe `A` do lado esquerdo vai gerar o link de acesso para o paciente poder acessar a tela que ele vai inserir o token e enviar. - Já o segundo RPA com detalhe `B` do lado direito vai ser acionado a partir do momento que o paciente inserir o token e enviar.
+
+[![Fluxograma RPA](assets/fluxograma_RPA.png "Fluxograma RPA")](assets/fluxograma_RPA.png)
+
+# Schema do Banco de Dados
+
+Uma imagem do schema do banco de dados é gerado automaticamente após apartir das models que foram criadas na pasta `api/src/models`.
+
+Para gerar a imagem do schema do banco de dados automaticamente execute um dos seguintes comandos abaixo :
+
+``` sh
+    
+    # Na raiz do projeto
+    set pythonpath=api/src && python api/src/schema/generate_schema.py
+
+    # Ou dentro da pasta interface
+    cd interface
+    npm run schema:bd
+
+```
+
+## Imagem do Schema
+
+[![Imagem do schema do banco de dados](api/src/schema/db.svg "Imagem do schema do banco de dados")](api/src/schema/db.svg)
+
 # Execução do projeto via docker
 
 Execute o seguinte comando :
