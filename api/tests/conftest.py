@@ -1,5 +1,5 @@
 from pytest import fixture
-from __init__ import create_app
+from __init__ import create_app,db
 import os
 from dotenv import load_dotenv
 
@@ -8,7 +8,7 @@ def criar_banco_de_dados():
 
     load_dotenv(dotenv_path="api/.env")
 
-    app,db = create_app()
+    app = create_app()
 
     with app.app_context():
 
@@ -23,7 +23,7 @@ def criar_banco_de_dados():
         db.engine.dispose()
 
     caminho_pasta_instance = f"{os.getcwd()}/api/src/instance/"
-    caminho_arquivo_banco = f"{caminho_pasta_instance}/{os.getenv("banco")}"
+    caminho_arquivo_banco = f"{caminho_pasta_instance}/{os.getenv("BD_NAME")}"
 
     os.remove(caminho_arquivo_banco)
     os.removedirs(caminho_pasta_instance)

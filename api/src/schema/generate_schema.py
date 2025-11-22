@@ -1,14 +1,15 @@
 from sqlalchemy import MetaData
 from sqlalchemy_schemadisplay import create_schema_graph
-from __init__ import create_app
+from src.__init__ import create_app
 import os
 from dotenv import load_dotenv
+from src.models.db import db
 
 def generate_schema():
 
     try:
         load_dotenv(dotenv_path="api/.env")
-        app, db = create_app()
+        app = create_app()
 
         with app.app_context():
 
