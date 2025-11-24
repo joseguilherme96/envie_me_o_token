@@ -55,6 +55,8 @@ Para gerar a imagem do schema do banco de dados automaticamente execute um dos s
 
 [![Imagem do schema do banco de dados](api/src/schema/db.svg "Imagem do schema do banco de dados")](api/src/schema/db.svg)
 
+Veja mais em [gerar schema do banco de dados](https://github.com/joseguilherme96/envie_me_o_token/tree/main/api/src/schema).
+
 # Execução do projeto via docker
 
 Execute o seguinte comando :
