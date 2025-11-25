@@ -1,4 +1,4 @@
-from src.rpa.abstract.abstract_request_sp_sadat import AbstractRequestSPSADAT
+from src.abstract.abstract_request_sp_sadat import AbstractRequestSPSADAT
 import requests
 
 

@@ -1,5 +1,5 @@
-from src.routes.v1.enviar_token_paciente.abstract_token import AbstractTokenPaciente
-from src.rpa.fake.fake_execucao_sp_sadat import FakeExecucaoSPSADAT as FakeRPAExecucaoSPSADAT
+from src.abstract.abstract_token import AbstractTokenPaciente
+from src.fake.fake_execucao_sp_sadat import FakeExecucaoSPSADAT as FakeRPAExecucaoSPSADAT
 from src.models.ExecucaoSPSADT import ExecucaoSPSADT
 from flask import jsonify
 

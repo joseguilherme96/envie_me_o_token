@@ -1,9 +1,9 @@
-from src.rpa.factory.factory_request_spsadt import FactoryRequestSPSADT
+from src.factory.factory_request_spsadt import FactoryRequestSPSADT
 from unittest.mock import patch
 import os
 from dotenv import load_dotenv
 
-@patch("src.rpa.fake.fake_resquest_execucao_sp_sadat.requests.post")
+@patch("src.fake.fake_resquest_execucao_sp_sadat.requests.post")
 def test_a_execucao_da_requisicao_sp_sadt_deve_ser_feita_com_sucesso(mock_request_post):
 
     ler_todo_conteudo_solicitacao_xml = """

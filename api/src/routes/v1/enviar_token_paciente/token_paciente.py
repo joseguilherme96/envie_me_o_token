@@ -1,4 +1,4 @@
-from src.routes.v1.enviar_token_paciente.abstract_token import AbstractTokenPaciente
+from src.abstract.abstract_token import AbstractTokenPaciente
 from flask import jsonify
 
 class TokenPaciente(AbstractTokenPaciente):

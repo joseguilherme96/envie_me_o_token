@@ -1,5 +1,5 @@
-from src.rpa.abstract.abstract_execucao_sp_sadat import AbstractExecucaoSPSADAT
-from src.rpa.fake.fake_resquest_execucao_sp_sadat import FakeRequestSPSADT
+from src.abstract.abstract_execucao_sp_sadat import AbstractExecucaoSPSADAT
+from src.fake.fake_resquest_execucao_sp_sadat import FakeRequestSPSADT
 
 class FakeExecucaoSPSADAT(AbstractExecucaoSPSADAT):
 
