@@ -1,5 +1,5 @@
 from src.abstract.abstract_execucao_sp_sadat import AbstractExecucaoSPSADAT
-from src.fake.fake_resquest_execucao_sp_sadat import FakeRequestSPSADT
+from src.factory.factory_request_spsadt import FactoryRequestSPSADT
 
 class FakeExecucaoSPSADAT(AbstractExecucaoSPSADAT):
 
@@ -29,7 +29,7 @@ class FakeExecucaoSPSADAT(AbstractExecucaoSPSADAT):
 
     def solicitar_autorizacao(self):
 
-        request = FakeRequestSPSADT()
+        request = FactoryRequestSPSADT()
         request.executar_request_sp_sadt()
 
         pass
