@@ -1,12 +1,14 @@
 from src.abstract.abstract_execucao_sp_sadat import AbstractExecucaoSPSADAT
-from src.factory.factory_request_spsadt import FactoryRequestSPSADT
+from src.fake.fake_resquest_execucao_sp_sadat import FakeRequestSPSADT
 
 class FakeExecucaoSPSADAT(AbstractExecucaoSPSADAT):
 
-    def __init__(self,dados_sp_sadat):
+    def __init__(self,uri,dados_sp_sadat):
 
         self.dados_sp_sadat = dados_sp_sadat
-        pass
+        self.uri = uri
+        self.status_code = None
+        self.response = None
 
     def processar_rpa(self):
 
@@ -29,10 +31,9 @@ class FakeExecucaoSPSADAT(AbstractExecucaoSPSADAT):
 
     def solicitar_autorizacao(self):
 
-        request = FactoryRequestSPSADT()
-        request.executar_request_sp_sadt()
+        request = FakeRequestSPSADT("http://apifake.com")
+        self.status_code, self.response = request.executar_request_sp_sadt(self.dados_sp_sadat)
 
-        pass
 
     def validar_autorizacao(self):
 
