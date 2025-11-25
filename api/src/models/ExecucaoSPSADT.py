@@ -24,3 +24,7 @@ class ExecucaoSPSADT(db.Model):
     tipo_transacao : Mapped[str] = mapped_column(String(30))
     transacao: Mapped[list["Transacao"]] = relationship(back_populates="execucao_spsadt")
     execucao_spsadt_procedimento : Mapped[List["ExecucaoSPSADTProcedimento"]] = relationship(back_populates="execucao_spsadt")
+
+    def select(where={}):
+
+        return []
