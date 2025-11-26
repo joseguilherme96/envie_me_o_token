@@ -25,7 +25,7 @@ def test_o_rpa_deve_ser_processado_com_o_envio_dos_dados_para_autorizacao(mock_r
     with app.app_context():
 
         logging.info("Enviando dados paciente para API RESTful.....")
-        response = api.receber_token_paciente_route()
+        response = api.enviar_dados_para_execucao_sp_sadt()
 
     assert response[1] == 201
     assert response[0].json == {"message": "O paciente foi autorizado com sucesso !"}

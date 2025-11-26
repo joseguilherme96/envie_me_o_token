@@ -20,7 +20,7 @@ class FakeAPITokenPaciente(AbstractAPITokenPaciente):
 
         self.dados_exec_sp_sadat =  {"paciente": "Henrique","numero_carteirinha":"32424242242424242"}
 
-    def receber_token_paciente_route(self):
+    def enviar_dados_para_execucao_sp_sadt(self):
 
         try:
 
@@ -37,5 +37,7 @@ class FakeAPITokenPaciente(AbstractAPITokenPaciente):
 
         except Exception as e:
 
-            return jsonify({"message":e})
+            erro = e.args[0]
+
+            return jsonify({"message": erro['message']}),erro['status_code']
 

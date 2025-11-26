@@ -17,7 +17,7 @@ class AbstractAPITokenPaciente(ABC):
         return {}
     
     @abstractmethod
-    def receber_token_paciente_route():
+    def enviar_dados_para_execucao_sp_sadt():
 
         pass
 
