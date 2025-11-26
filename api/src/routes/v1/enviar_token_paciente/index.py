@@ -1,9 +1,9 @@
 
 from flask import Blueprint,jsonify
 from src.models.ExecucaoSPSADT import ExecucaoSPSADT
-from src.factory.factory_token import FactoryToken
+from src.factory.factory_api_token_paciente import FactoryAPITokenPaciente
 
-token_service = FactoryToken()
+token_service = FactoryAPITokenPaciente()
 
 token = Blueprint("token_paciente",__name__)
 

@@ -24,5 +24,9 @@ class ExecucaoSPSADAT(AbstractExecucaoSPSADAT):
 
         pass
 
+    def salvar_autorizacao(self):
+
+        pass
+
     
     

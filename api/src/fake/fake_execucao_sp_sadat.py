@@ -9,6 +9,7 @@ class FakeExecucaoSPSADAT(AbstractExecucaoSPSADAT):
         self.uri = uri
         self.status_code = None
         self.response = None
+        self.processado = False
 
     def processar_rpa(self):
 
@@ -19,10 +20,11 @@ class FakeExecucaoSPSADAT(AbstractExecucaoSPSADAT):
             self.validar_autorizacao()
             self.salvar_autorizacao()
 
-            return {}
+            self.processado = True
         
         except Exception as e:
 
+            self.processado = False
             raise e
 
     def validar_dados_a_enviar(self):

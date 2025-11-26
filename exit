@@ -1,0 +1,165 @@
+[1mdiff --git a/api/src/abstract/abstract_token.py b/api/src/abstract/abstract_token.py[m
+[1mdeleted file mode 100644[m
+[1mindex 88282b9..0000000[m
+[1m--- a/api/src/abstract/abstract_token.py[m
+[1m+++ /dev/null[m
+[36m@@ -1,18 +0,0 @@[m
+[31m-from abc import ABC, abstractmethod[m
+[31m-[m
+[31m-class AbstractTokenPaciente(ABC):[m
+[31m-[m
+[31m-    @abstractmethod[m
+[31m-    def __init__(self):[m
+[31m-        pass[m
+[31m-[m
+[31m-    @abstractmethod[m
+[31m-    def validar_dados_enviados():[m
+[31m-[m
+[31m-        pass[m
+[31m-    [m
+[31m-    @abstractmethod[m
+[31m-    def receber_token_consulta_paciente_route():[m
+[31m-[m
+[31m-        pass[m
+[31m-[m
+[1mdiff --git a/api/src/factory/factory_token.py b/api/src/factory/factory_token.py[m
+[1mdeleted file mode 100644[m
+[1mindex 3c1df42..0000000[m
+[1m--- a/api/src/factory/factory_token.py[m
+[1m+++ /dev/null[m
+[36m@@ -1,17 +0,0 @@[m
+[31m-from src.fake.fake_token import FakeTokenPaciente[m
+[31m-from src.routes.v1.enviar_token_paciente.token_paciente import TokenPaciente[m
+[31m-import os[m
+[31m-from dotenv import load_dotenv[m
+[31m-[m
+[31m-class FactoryToken:[m
+[31m-[m
+[31m-     @staticmethod[m
+[31m-     def create():[m
+[31m-[m
+[31m-        load_dotenv(dotenv_path="api/.env")[m
+[31m-[m
+[31m-        if os.getenv("ENV_FOR_DYNACONF") == "test":[m
+[31m-[m
+[31m-            return FakeTokenPaciente()[m
+[31m-[m
+[31m-        return TokenPaciente()[m
+\ No newline at end of file[m
+[1mdiff --git a/api/src/fake/fake_execucao_sp_sadat.py b/api/src/fake/fake_execucao_sp_sadat.py[m
+[1mindex e04cad4..2c310f2 100644[m
+[1m--- a/api/src/fake/fake_execucao_sp_sadat.py[m
+[1m+++ b/api/src/fake/fake_execucao_sp_sadat.py[m
+[36m@@ -9,6 +9,7 @@[m [mclass FakeExecucaoSPSADAT(AbstractExecucaoSPSADAT):[m
+         self.uri = uri[m
+         self.status_code = None[m
+         self.response = None[m
+[32m+[m[32m        self.processado = False[m
+ [m
+     def processar_rpa(self):[m
+ [m
+[36m@@ -19,10 +20,11 @@[m [mclass FakeExecucaoSPSADAT(AbstractExecucaoSPSADAT):[m
+             self.validar_autorizacao()[m
+             self.salvar_autorizacao()[m
+ [m
+[31m-            return {}[m
+[32m+[m[32m            self.processado = True[m
+         [m
+         except Exception as e:[m
+ [m
+[32m+[m[32m            self.processado = False[m
+             raise e[m
+ [m
+     def validar_dados_a_enviar(self):[m
+[1mdiff --git a/api/src/fake/fake_token.py b/api/src/fake/fake_token.py[m
+[1mdeleted file mode 100644[m
+[1mindex d5ba822..0000000[m
+[1m--- a/api/src/fake/fake_token.py[m
+[1m+++ /dev/null[m
+[36m@@ -1,33 +0,0 @@[m
+[31m-from src.abstract.abstract_token import AbstractTokenPaciente[m
+[31m-from src.fake.fake_execucao_sp_sadat import FakeExecucaoSPSADAT as FakeRPAExecucaoSPSADAT[m
+[31m-from src.models.ExecucaoSPSADT import ExecucaoSPSADT[m
+[31m-from flask import jsonify[m
+[31m-[m
+[31m-class FakeTokenPaciente(AbstractTokenPaciente):[m
+[31m-[m
+[31m-    def __init__(self):[m
+[31m-        pass[m
+[31m-[m
+[31m-    def validar_dados_enviados():[m
+[31m-[m
+[31m-        return True[m
+[31m-[m
+[31m-    def receber_token_consulta_paciente_route(self):[m
+[31m-[m
+[31m-        try:[m
+[31m-[m
+[31m-            self.validar_dados_enviados()[m
+[31m-            [m
+[31m-            where = {}[m
+[31m-            buscar_sp_sadat = ExecucaoSPSADT()[m
+[31m-            sp_sadat = buscar_sp_sadat.select(where)[m
+[31m-       [m
+[31m-            executar_rpa = FakeRPAExecucaoSPSADAT(sp_sadat)[m
+[31m-            executar_rpa.processar_rpa()[m
+[31m-[m
+[31m-            return jsonify({"message": "O paciente foi autorizado com sucesso !"}),201[m
+[31m-[m
+[31m-        except Exception as e:[m
+[31m-[m
+[31m-            return jsonify({"message":e})[m
+[31m-[m
+[1mdiff --git a/api/src/routes/v1/enviar_token_paciente/index.py b/api/src/routes/v1/enviar_token_paciente/index.py[m
+[1mindex 242104a..d6dec44 100644[m
+[1m--- a/api/src/routes/v1/enviar_token_paciente/index.py[m
+[1m+++ b/api/src/routes/v1/enviar_token_paciente/index.py[m
+[36m@@ -1,9 +1,9 @@[m
+ [m
+ from flask import Blueprint,jsonify[m
+ from src.models.ExecucaoSPSADT import ExecucaoSPSADT[m
+[31m-from src.factory.factory_token import FactoryToken[m
+[32m+[m[32mfrom src.factory.factory_api_token_paciente import FactoryAPITokenPaciente[m
+ [m
+[31m-token_service = FactoryToken()[m
+[32m+[m[32mtoken_service = FactoryAPITokenPaciente()[m
+ [m
+ token = Blueprint("token_paciente",__name__)[m
+ [m
+[1mdiff --git a/api/src/routes/v1/enviar_token_paciente/token_paciente.py b/api/src/routes/v1/enviar_token_paciente/token_paciente.py[m
+[1mdeleted file mode 100644[m
+[1mindex 0ff8420..0000000[m
+[1m--- a/api/src/routes/v1/enviar_token_paciente/token_paciente.py[m
+[1m+++ /dev/null[m
+[36m@@ -1,15 +0,0 @@[m
+[31m-from src.abstract.abstract_token import AbstractTokenPaciente[m
+[31m-from flask import jsonify[m
+[31m-[m
+[31m-class TokenPaciente(AbstractTokenPaciente):[m
+[31m-[m
+[31m-    def __init__(self):[m
+[31m-        pass[m
+[31m-[m
+[31m-    def validar_dados_paciente():[m
+[31m-[m
+[31m-        return True[m
+[31m-[m
+[31m-    def token_paciente(self):[m
+[31m-[m
+[31m-        return jsonify({}),201[m
+\ No newline at end of file[m
+[1mdiff --git a/api/src/rpa/execucao_sp_sadat.py b/api/src/rpa/execucao_sp_sadat.py[m
+[1mindex 29f4a8a..6801243 100644[m
+[1m--- a/api/src/rpa/execucao_sp_sadat.py[m
+[1m+++ b/api/src/rpa/execucao_sp_sadat.py[m
+[36m@@ -24,5 +24,9 @@[m [mclass ExecucaoSPSADAT(AbstractExecucaoSPSADAT):[m
+ [m
+         pass[m
+ [m
+[32m+[m[32m    def salvar_autorizacao(self):[m
+[32m+[m
+[32m+[m[32m        pass[m
+[32m+[m
+     [m
+     [m
+\ No newline at end of file[m
