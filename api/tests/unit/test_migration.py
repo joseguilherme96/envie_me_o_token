@@ -1,5 +1,6 @@
 
-from src import create_app, db, upgrade, migrate, init
+from src import create_app, db
+from flask_migrate import Migrate,upgrade,migrate,init
 from pathlib import Path
 import os
 from dotenv import load_dotenv

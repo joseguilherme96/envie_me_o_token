@@ -4,7 +4,7 @@ from src.routes.v1.enviar_token_paciente.index import token
 from src.models.db import db
 from dotenv import load_dotenv
 import os
-from flask_migrate import Migrate, upgrade, migrate, init
+from src.config_migrate import instancia_migrate
 
 load_dotenv(dotenv_path="api/.env")
 
@@ -18,7 +18,7 @@ def create_app():
     app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{get_db_path()}"
     db.init_app(app)
 
-    Migrate(app,db)
+    instancia_migrate.init_app(app,db)
 
     return app
 
