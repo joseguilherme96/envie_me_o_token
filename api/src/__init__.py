@@ -4,6 +4,8 @@ from src.routes.v1.enviar_token_paciente.index import token
 from src.models.db import db
 from dotenv import load_dotenv
 import os
+from config import settings
+
 from src.config_migrate import instancia_migrate
 
 load_dotenv(dotenv_path="api/.env")
@@ -29,7 +31,7 @@ def get_db_path():
     db_folder = os.path.join(BASE_DIR, "instance")
     os.makedirs(db_folder, exist_ok=True)
 
-    db_path = os.path.join(db_folder, os.getenv("BD_NAME"))
+    db_path = os.path.join(db_folder, settings.BD_NAME)
 
     return db_path
 

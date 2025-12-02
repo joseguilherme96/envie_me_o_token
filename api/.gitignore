@@ -2,3 +2,5 @@
 __pycache__
 .pytest_cache
 src/instance
+# Ignore dynaconf secret files
+.secrets.*

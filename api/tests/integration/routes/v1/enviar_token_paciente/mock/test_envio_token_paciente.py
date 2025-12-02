@@ -2,7 +2,8 @@ import requests
 from unittest.mock import patch
 from pytest import mark
 from dotenv import load_dotenv
-import os
+from config import settings
+
 
 @patch("requests.post")
 def test_deve_responder_status_code_201(mock_request_post):
@@ -14,7 +15,7 @@ def test_deve_responder_status_code_201(mock_request_post):
         "messages": []
     }
 
-    response = requests.post(f"{os.getenv("BASE_URL")}/enviar_token_paciente",json={
+    response = requests.post(f"{settings.BASE_URL}/enviar_token_paciente",json={
         "token":"123343222",
         "codigo_execucao_sp_sadt":1
     })
@@ -31,7 +32,7 @@ def test_deve_responder_token_invalido(mock_request_post):
         "messages": []
         }
 
-    response = requests.post(f"{os.getenv("BASE_URL")}/enviar_token_paciente",json={
+    response = requests.post(f"{settings.BASE_URL}/enviar_token_paciente",json={
         "token":"123343222",
         "codigo_execucao_sp_sadt":1
     })

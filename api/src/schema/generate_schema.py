@@ -5,11 +5,12 @@ import os
 from dotenv import load_dotenv
 from src.models.db import db
 import logging
+from config import settings
 
 def generate_schema():
 
     try:
-        load_dotenv(dotenv_path="api/.env")
+        
         app = create_app()
 
         with app.app_context():
@@ -27,7 +28,7 @@ def generate_schema():
                 concentrate=False
             )
 
-            path_image_schema_bd = os.getenv("path_image_schema_bd")
+            path_image_schema_bd = settings.path_image_schema_bd
             path_file_save_svg = f"{path_image_schema_bd}/db.svg"
             graph.write_svg(path_file_save_svg)
             db.engine.dispose()
