@@ -3,6 +3,14 @@ from __init__ import create_app,db
 import os
 from config import settings
 
+
+@fixture(scope="session",autouse=True)
+def set_test_settigs():
+
+    os.environ["SETTINGS_FILE_FOR_DYNACONF"] = "api/settings.toml"
+    settings.configure(FORCE_ENV_FOR_DYNACONF="testing")
+    print("\n🌱 Ambiente Dynaconf: TESTING ativado\n")
+
 @fixture
 def criar_banco_de_dados():
 

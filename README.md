@@ -1,6 +1,8 @@
 # Envie Me O Token -  Em desenvolvimento....
 
-Será criada uma interface para que o paciente possa enviar o token gerado em seu dispositivo, ao enviar , será acionando um RPA que enviará uma solicitação a um web service SOAP afim de autorizar a sessão para o paciente realizar o tratamento sem a necessidade da recepicionista inserir o token de forma manual ganhando agilidade no atendimento do paciente.
+Automação será responsável por enviar dados do paciente para web service no padrão TISS para autorizar a sua sessão de tratamento automaticamente de acordo com os dados já pré-cadastrados agilizando o processo de atendimento do paciente.
+
+Será criada uma interface para que o paciente possa enviar o token gerado em seu dispositivo, ao enviar , um RPA será acionado, onde enviará uma solicitação a um web service SOAP afim de autorizar a sessão para o paciente realizar o tratamento sem a necessidade da recepicionista precisar ficar inserindo as mesmas informações para cada autorização e cada sessão do paciente de forma manual e repetida, já que os dados do paciente são mantidos até a ultima sessão, e estes dados não mudam, o app mantém os dados do paciente já pré-cadastrados, aguardando somente o envio do novo token pelo paciente que se altera a cada sessão, assim o processo de atendimento para cada autorização do paciente na sessão, acaba se tornando mais agil para casos que o paciente tem um grande numero de sessões a se fazer.
 
 # Objetivo deste projeto
 
@@ -13,8 +15,9 @@ Além de resolver um problema real, tem finalidade também de aplicar os conheci
 - Compreensão e Manipulação de arquivos/schemas XML.
 - Compressão de leituras de documentação técnicas.
 - Seguir padrões de comunicação estabelecidos pela ANS seguindo o padrão `TISS - Troca de Informação na Saúde Suplementar`
+- Trabalhar com o padrão Abstract Factory
 - Desenvolver o RPA orientado as testes `TDD - Test Driven Develoment` com `Pytest`
-- - Testes conceituais
+- - Testes conceituais/interfaces
 - - Testes de Zombaria(Mocks)
 - - Criar testes unitários
 - - Criar testes de integração
@@ -56,6 +59,21 @@ Para gerar a imagem do schema do banco de dados automaticamente execute um dos s
 [![Imagem do schema do banco de dados](api/src/schema/db.svg "Imagem do schema do banco de dados")](api/src/schema/db.svg)
 
 Veja mais em [gerar schema do banco de dados](https://github.com/joseguilherme96/envie_me_o_token/tree/main/api/src/schema).
+
+# Execução dos testes de integração
+
+Os testes estão sendo escritos com Pytest. Para executar os testes execute o seguinte comando :
+
+```sh
+
+set pythonpath=api && pytest api/tests #  Windows
+
+export pythopath=api && pytest api/tests # Linux
+
+```
+
+[![Testes automatizados atualizados até 02/12/2025](assets/testes_automatizados_20251202.png "Testes automatizados atualizados até 02/12/2025")](assets/testes_automatizados_20251202.png)
+
 
 # Execução do projeto via docker
 
