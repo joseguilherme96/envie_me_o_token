@@ -10,5 +10,5 @@ class RequestSPSADTDataXML(AbstractRequestSPSADTDataXML):
 
     def construir_xml(self):
 
-        self.xml =""
+        self.xml = f"<xml><Paciente>Henrique</Paciente><NumeroCarterinha>32424242242424242</NumeroCarterinha></xml>"
 

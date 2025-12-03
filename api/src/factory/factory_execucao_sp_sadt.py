@@ -11,7 +11,7 @@ class FactoryExecucaoSPSADT:
 
         load_dotenv(dotenv_path="api/.env")
 
-        if settings.ENV_FOR_DYNACONF == "testing":
+        if settings.ENV_FOR_DYNACONF == "testing" and settings.USE_CLASS_FAKE:
 
             return FakeExecucaoSPSADAT(uri,dados_sp_sadat)
 

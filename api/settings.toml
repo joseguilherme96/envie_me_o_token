@@ -45,3 +45,4 @@ path_image_schema_bd = "api/src/schema"
 BASE_URL = "http://127.0.0.1:5001"
 API_SOAP_AUTORIZACAO_EXECUCAO_SP_SADT = "http://fakeapi.com.br" 
 DATABASE_URL = "mysql://user:pass@localhost/db"
+USE_CLASS_FAKE = false

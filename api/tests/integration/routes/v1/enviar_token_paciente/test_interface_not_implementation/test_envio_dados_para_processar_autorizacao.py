@@ -1,7 +1,6 @@
 from src.factory.factory_api_token_paciente import FactoryAPITokenPaciente
 from src import create_app
 import logging
-import requests
 from unittest.mock import patch,Mock
 import xml.etree.ElementTree as ET
 

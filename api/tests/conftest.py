@@ -2,6 +2,7 @@ from pytest import fixture
 from __init__ import create_app,db
 import os
 from config import settings
+import pytest
 
 
 @fixture(scope="session",autouse=True)
@@ -10,6 +11,28 @@ def set_test_settigs():
     os.environ["SETTINGS_FILE_FOR_DYNACONF"] = "api/settings.toml"
     settings.configure(FORCE_ENV_FOR_DYNACONF="testing")
     print("\n🌱 Ambiente Dynaconf: TESTING ativado\n")
+
+    value = os.environ.get("DYNACONF_USE_CLASS_FAKE",None)
+
+    if value is None:
+    
+        pytest.exit(f"""
+                    
+        🚨 Variável obrigatória `DYNACONF_USE_CLASS_FAKE` não definida!
+
+        Defina antes de rodar os testes:
+
+        Windows:
+            set DYNACONF_USE_CLASS_FAKE=true && pytest api
+            set DYNACONF_USE_CLASS_FAKE=false && pytest api
+
+        Linux/mac:
+            DYNACONF_USE_CLASS_FAKE=true pytest api
+            DYNACONF_USE_CLASS_FAKE=false pytest api
+        """)
+
+    print(f"🔧 DYNACONF_USE_CLASS_FAKE = {value}")
+    
 
 @fixture
 def criar_banco_de_dados():
