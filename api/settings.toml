@@ -29,11 +29,11 @@ path_image_schema_bd = "api/src/schema"
 BASE_URL = "http://127.0.0.1:5001"
 API_SOAP_AUTORIZACAO_EXECUCAO_SP_SADT = "http://fakeapi.com.br" 
 DATABASE_URL = "sqlite:///src/instance/testing.db"  
-  
-[production]  
-DEBUG = false
-BD_NAME = "production.db"
-connection_string = "sqlite:///src/instance/production.db"
+
+[staging]  
+DEBUG = true  
+BD_NAME = "staging.db"
+connection_string = "mysql+pymysql://user:password@localhost:3306/staging"
 FLASK_APP="api.src"
 path_modelo_solicitacao_xml = "template_xml/solicitacao.xml"
 DB_HOST= ""
@@ -44,5 +44,21 @@ pythonpath="api"
 path_image_schema_bd = "api/src/schema"
 BASE_URL = "http://127.0.0.1:5001"
 API_SOAP_AUTORIZACAO_EXECUCAO_SP_SADT = "http://fakeapi.com.br" 
-DATABASE_URL = "mysql://user:pass@localhost/db"
+DATABASE_URL = "mysql+pymysql://user:password@localhost:3306/staging"  
+  
+[production]  
+DEBUG = false
+BD_NAME = "production.db"
+connection_string = "mysql+pymysql://user:password@localhost:3306/production"
+FLASK_APP="api.src"
+path_modelo_solicitacao_xml = "template_xml/solicitacao.xml"
+DB_HOST= ""
+BD_PORT= ""
+BD_PASSWORD= ""
+BD_USER= ""
+pythonpath="api"
+path_image_schema_bd = "api/src/schema"
+BASE_URL = "http://127.0.0.1:5001"
+API_SOAP_AUTORIZACAO_EXECUCAO_SP_SADT = "http://fakeapi.com.br" 
+DATABASE_URL = "mysql+pymysql://user:password@localhost:3306/production"
 USE_CLASS_FAKE = false
