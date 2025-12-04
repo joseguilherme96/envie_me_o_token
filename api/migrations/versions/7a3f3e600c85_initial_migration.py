@@ -50,12 +50,12 @@ def upgrade():
     )
     op.create_table('tipo_user',
     sa.Column('cod_tipo_user', sa.Integer(), nullable=False),
-    sa.Column('tipo', sa.String(), nullable=False),
+    sa.Column('tipo', sa.String(50), nullable=False),
     sa.PrimaryKeyConstraint('cod_tipo_user'),
     sa.UniqueConstraint('cod_tipo_user')
     )
     op.create_table('users',
-    sa.Column('login', sa.String(), nullable=False),
+    sa.Column('login', sa.String(length=30), nullable=False),
     sa.Column('senha', sa.String(length=30), nullable=False),
     sa.Column('tipo_usuario_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['tipo_usuario_id'], ['tipo_user.cod_tipo_user'], ),
@@ -68,7 +68,7 @@ def upgrade():
     sa.Column('codigo_contratado', sa.Integer(), nullable=False),
     sa.Column('codigo_solicitante', sa.Integer(), nullable=False),
     sa.Column('operadora_registro_ans', sa.Integer(), nullable=False),
-    sa.Column('login', sa.String(), nullable=False),
+    sa.Column('login', sa.String(length=30), nullable=False),
     sa.Column('indicacao_clinica', sa.Boolean(), nullable=False),
     sa.Column('indicacao_acidente', sa.Integer(), nullable=False, comment='Ver tiss/schema.'),
     sa.Column('observacao', sa.Text(length=500), nullable=False),

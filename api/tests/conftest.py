@@ -3,6 +3,7 @@ from __init__ import create_app,db
 import os
 from config import settings
 import pytest
+from src import get_db_path
 
 
 @fixture(scope="session",autouse=True)
@@ -34,20 +35,37 @@ def set_test_settigs():
     print(f"🔧 DYNACONF_USE_CLASS_FAKE = {value}")
     
 
-@fixture
-def criar_banco_de_dados():
+def pytest_addoption(parser):
 
-    app = create_app()
+    parser.addoption(
+        "--dburl",
+        action="store",
+        default=get_db_path(),
+        help=f"Database URL para  testes, default : {get_db_path()}"
+    )
+
+@fixture(scope="session")
+def db_url(request):
+
+    return request.config.getoption("--dburl")
+
+@fixture
+def app(db_url):
+
+    test_config = {
+        "SQLALCHEMY_DATABASE_URI": db_url,
+        "SQLALCHEMY_TRACK_MODIFICATIONS": False,
+    }
+
+    app = create_app(test_config)
 
     with app.app_context():
 
         db.create_all()
-        print(settings.connection_string)
+        
+        yield app
 
-    yield [app,db]
-
-    with app.app_context():
-
+        db.session.remove()
         db.drop_all()
         db.engine.dispose()
 
@@ -55,4 +73,3 @@ def criar_banco_de_dados():
     caminho_arquivo_banco = f"{caminho_pasta_instance}/{settings.BD_NAME}"
 
     os.remove(caminho_arquivo_banco)
-    os.removedirs(caminho_pasta_instance)

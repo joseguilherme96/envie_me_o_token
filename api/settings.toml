@@ -1,8 +1,9 @@
 [development]  
 DEBUG = true  
 BD_NAME = "project.db"
-DATABASE_URL = "sqlite:///src/instance/project.db" 
-connection_string = "sqlite:///src/instance/project.db"
+DATABASE_URL = "mysql+pymysql://root@localhost:3306/development" 
+connection_string = "mysql+pymysql://root@localhost:3306/development"
+DATABASE_MEMORY = false
 FLASK_APP="api.src"
 path_modelo_solicitacao_xml = "template_xml/solicitacao.xml"
 DB_HOST= ""
@@ -17,7 +18,8 @@ API_SOAP_AUTORIZACAO_EXECUCAO_SP_SADT = "http://fakeapi.com.br"
 [testing]  
 DEBUG = true  
 BD_NAME = "testing.db"
-connection_string = "sqlite:///src/instance/testing.db"
+connection_string = "sqlite:///C:\\xampp\\htdocs\\envie_me_o_token\\api\\src\\instance\\testing.db"
+DATABASE_MEMORY = true
 FLASK_APP="api.src"
 path_modelo_solicitacao_xml = "template_xml/solicitacao.xml"
 DB_HOST= ""
@@ -28,12 +30,12 @@ pythonpath="api"
 path_image_schema_bd = "api/src/schema"
 BASE_URL = "http://127.0.0.1:5001"
 API_SOAP_AUTORIZACAO_EXECUCAO_SP_SADT = "http://fakeapi.com.br" 
-DATABASE_URL = "sqlite:///src/instance/testing.db"  
+DATABASE_URL = "sqlite:///C:\\xampp\\htdocs\\envie_me_o_token\\api\\src\\instance\\testing.db"  
 
 [staging]  
 DEBUG = true  
 BD_NAME = "staging.db"
-connection_string = "mysql+pymysql://user:password@localhost:3306/staging"
+connection_string = "mysql+pymysql://root@localhost:3306/staging"
 FLASK_APP="api.src"
 path_modelo_solicitacao_xml = "template_xml/solicitacao.xml"
 DB_HOST= ""
@@ -44,12 +46,12 @@ pythonpath="api"
 path_image_schema_bd = "api/src/schema"
 BASE_URL = "http://127.0.0.1:5001"
 API_SOAP_AUTORIZACAO_EXECUCAO_SP_SADT = "http://fakeapi.com.br" 
-DATABASE_URL = "mysql+pymysql://user:password@localhost:3306/staging"  
+DATABASE_URL = "mysql+pymysql://root@localhost:3306/staging"  
   
 [production]  
 DEBUG = false
 BD_NAME = "production.db"
-connection_string = "mysql+pymysql://user:password@localhost:3306/production"
+connection_string = "mysql+pymysql://root@localhost:3306/production"
 FLASK_APP="api.src"
 path_modelo_solicitacao_xml = "template_xml/solicitacao.xml"
 DB_HOST= ""
@@ -60,5 +62,5 @@ pythonpath="api"
 path_image_schema_bd = "api/src/schema"
 BASE_URL = "http://127.0.0.1:5001"
 API_SOAP_AUTORIZACAO_EXECUCAO_SP_SADT = "http://fakeapi.com.br" 
-DATABASE_URL = "mysql+pymysql://user:password@localhost:3306/production"
+DATABASE_URL = "mysql+pymysql://root@localhost:3306/production"
 USE_CLASS_FAKE = false

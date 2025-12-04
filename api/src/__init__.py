@@ -2,14 +2,12 @@ from flask import Flask
 from src.routes.index import main
 from src.routes.v1.enviar_token_paciente.index import token
 from src.models.db import db
-from dotenv import load_dotenv
-import os
 from config import settings
 from dynaconf import FlaskDynaconf
 
 from src.config_migrate import instancia_migrate
 
-def create_app():
+def create_app(app_config=None):
 
     app = Flask(__name__)
     FlaskDynaconf(app)
@@ -18,7 +16,19 @@ def create_app():
     app.register_blueprint(token)
 
     print("Ambiente Flask :",settings.ENV_FOR_DYNACONF)
-    app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{get_db_path()}"
+    print("DATABASE_URL :",settings.DATABASE_URL)
+    print("APP_CONFIG :", app_config)
+    
+    if app_config:
+
+        app.config.update(app_config)
+
+    else :
+
+        app.config["SQLALCHEMY_DATABASE_URI"] = settings.DATABASE_URL
+
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
     db.init_app(app)
 
     instancia_migrate.init_app(app,db)
@@ -27,12 +37,5 @@ def create_app():
 
 def get_db_path():
 
-    BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-
-    db_folder = os.path.join(BASE_DIR, "instance")
-    os.makedirs(db_folder, exist_ok=True)
-
-    db_path = os.path.join(db_folder, settings.BD_NAME)
-
-    return db_path
+    return settings.DATABASE_URL
 
