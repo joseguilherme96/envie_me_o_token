@@ -9,6 +9,6 @@ class Users(db.Model):
     login : Mapped[str] = mapped_column(unique=True,primary_key=True)
     senha : Mapped[str] = mapped_column(String(30))
     tipo_usuario_id : Mapped[int] = mapped_column(ForeignKey("tipo_user.cod_tipo_user"))
-    users : Mapped[UserTipo] = relationship(back_populates="users")
+    users : Mapped[TipoUser] = relationship(back_populates="users")
     execucao_spsadt : Mapped[List["ExecucaoSPSADT"]] = relationship(back_populates="users")
     

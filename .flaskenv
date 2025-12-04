@@ -1,0 +1,3 @@
+FLASK_APP=api.src
+FLASK_DEBUG=false
+FLASK_DB_DIRECTORY=api/migrations

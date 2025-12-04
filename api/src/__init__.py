@@ -5,18 +5,19 @@ from src.models.db import db
 from dotenv import load_dotenv
 import os
 from config import settings
+from dynaconf import FlaskDynaconf
 
 from src.config_migrate import instancia_migrate
-
-load_dotenv(dotenv_path="api/.env")
 
 def create_app():
 
     app = Flask(__name__)
+    FlaskDynaconf(app)
 
     app.register_blueprint(main)
     app.register_blueprint(token)
 
+    print("Ambiente Flask :",settings.ENV_FOR_DYNACONF)
     app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{get_db_path()}"
     db.init_app(app)
 

@@ -10,7 +10,7 @@ def set_test_settigs():
 
     os.environ["SETTINGS_FILE_FOR_DYNACONF"] = "api/settings.toml"
     settings.configure(FORCE_ENV_FOR_DYNACONF="testing")
-    print("\n🌱 Ambiente Dynaconf: TESTING ativado\n")
+    print("\n🌱 Ambiente Dynaconf: testing ativado")
 
     value = os.environ.get("DYNACONF_USE_CLASS_FAKE",None)
 

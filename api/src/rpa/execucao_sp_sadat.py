@@ -1,4 +1,4 @@
-from abstract.abstract_execucao_sp_sadat import AbstractExecucaoSPSADAT
+from src.abstract.abstract_execucao_sp_sadat import AbstractExecucaoSPSADAT
 from src.fake.fake_resquest_execucao_sp_sadat import FakeRequestSPSADT
 import logging
 

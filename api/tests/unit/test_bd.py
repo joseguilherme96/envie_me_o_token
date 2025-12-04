@@ -8,7 +8,7 @@ def test_deve_criar_banco_de_dados(capfd,criar_banco_de_dados):
     load_dotenv(dotenv_path="api/.env")
 
     read = capfd.readouterr()
-    assert read.out == f"{settings.connection_string}\n", "Falha ao criar banco de dados !"
+    assert read.out.split("\n")[1] == f"{settings.connection_string}", "Falha ao criar banco de dados !"
 
    
 
