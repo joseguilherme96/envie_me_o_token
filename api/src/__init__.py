@@ -2,15 +2,17 @@ from flask import Flask
 from src.routes.index import main
 from src.routes.v1.enviar_token_paciente.index import token
 from src.routes.v1.tipo_user.index import tipo_user
+from src.routes.v1.status.index import status
 from src.models.db import db
 from config import settings
 from dynaconf import FlaskDynaconf
-import os
 import logging
-
 from src.config_migrate import instancia_migrate
+from logging.config import dictConfig
 
 def create_app(app_config=None):
+
+    formatar_logging()
 
     app = Flask(__name__)
     FlaskDynaconf(app)
@@ -18,6 +20,7 @@ def create_app(app_config=None):
     app.register_blueprint(main)
     app.register_blueprint(token)
     app.register_blueprint(tipo_user)
+    app.register_blueprint(status)
     
     if app_config:
 
@@ -45,5 +48,23 @@ def create_app(app_config=None):
 def get_db_path():
 
     return settings.DATABASE_URL
+
+def formatar_logging():
+
+    dictConfig({
+        'version': 1,
+        'formatters': {'default': {
+            'format': '[%(asctime)s] %(levelname)s in %(module)s: %(message)s',
+        }},
+        'handlers': {'wsgi': {
+            'class': 'logging.StreamHandler',
+            'stream': 'ext://flask.logging.wsgi_errors_stream',
+            'formatter': 'default'
+        }},
+        'root': {
+            'level': "DEBUG" if settings.DEBUG else "INFO" ,
+            'handlers': ['wsgi']
+        }
+    })
 
  
