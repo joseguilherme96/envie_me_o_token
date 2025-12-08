@@ -5,6 +5,7 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 import logging
+from sqlalchemy import text
 
 def test_deve_iniciar_a_pasta_migrations_temp(capfd,tmp_path,caplog):
 
@@ -28,18 +29,18 @@ def test_deve_iniciar_a_pasta_migrations_temp(capfd,tmp_path,caplog):
         assert False
 
 
-def test_as_migracoes_devem_ser_executadas(capfd,tmp_path,caplog):
+def test_as_migracoes_devem_ser_executadas(capfd,tmp_path,caplog,app):
 
     caplog.set_level(level="INFO")
     temp_dir = tmp_path / "migrations_temp"
     temp_dir.mkdir()
 
-    app = create_app()
-    
     try:
 
         with app.app_context():
 
+            db.drop_all()
+            
             init(directory=f"{str(temp_dir)}")
             migrate(directory=f"{str(temp_dir)}")
 
@@ -57,8 +58,6 @@ def test_as_migracoes_devem_ser_executadas(capfd,tmp_path,caplog):
     migration_file_versions = [file for file in path_versions.iterdir() if file.suffix == '.py' ]
 
     assert len(migration_file_versions) == 1
-
-    app = create_app()
 
     try:
 
