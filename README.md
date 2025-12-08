@@ -60,7 +60,35 @@ Para gerar a imagem do schema do banco de dados automaticamente execute um dos s
 
 Veja mais em [gerar schema do banco de dados](https://github.com/joseguilherme96/envie_me_o_token/tree/main/api/src/schema).
 
-# Execução dos testes de integração
+# Gerenciamento de ambientes com Dynaconf
+
+Os ambientes development, testing, staging e production estão sendo gerenciados por Dynaconf trazendo facilidade para testes nos diferentes ambientes e implementação do app.
+
+## Alternado entre ambientes
+
+```sh
+
+    Set ENV_FOR_DYNACONF = development # Windows : Default : development, opcionais : testing, staging or production
+
+```
+
+
+# Migração do banco de dados
+
+```sh
+
+    flask db migrate
+
+```
+# Executar o servidor Flask
+
+```sh
+
+    set pythonpath=api && flask run
+
+```
+
+# Execução dos testes de automatizados
 
 Os testes estão sendo escritos com Pytest. Para executar os testes execute o seguinte comando :
 
@@ -73,6 +101,18 @@ export pythopath=api && pytest api/tests # Linux
 ```
 
 [![Testes automatizados atualizados até 02/12/2025](assets/testes_automatizados_20251202.png "Testes automatizados atualizados até 02/12/2025")](assets/testes_automatizados_20251202.png)
+
+## Execução de testes com Banco de dados MySQL
+
+Ao executar os testes por padrão, os testes são executados utilizando o bancos de dados SQLite para mair rapidez nos testes, os teste podem ser alterados para um banco real utilizando a flag --dburl conforme exemplo abaixo.
+
+
+```sh
+
+    pytest api --log-cli-level=DEBUG --dburl=mysql+pymysql://root@localhost:3306/testing
+
+```
+
 
 
 # Execução do projeto via docker
