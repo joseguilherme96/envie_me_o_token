@@ -39,6 +39,18 @@ def pytest_sessionstart(session):
                 raise 
 
             logging.info("A conexão com o servidor flask foi feita com sucesso !")
+
+            logging.info("Verificando se servidor está rodando no mesmo ambiente que o teste....")
+            logging.debug("Ambiente no teste :",settings.ENV_FOR_DYNACONF)
+
+            response = requests.get(f"{settings.BASE_URL}/status")
+            response_json = response.json()
+
+            logging.debug(f"Ambiente no servidor : {response_json['enviroment']}")
+
+            if  response_json["enviroment"] != settings.ENV_FOR_DYNACONF:
+
+                raise Exception("O ambiente que está sendo executado o teste é diferente do ambiente que está sendo executado no servidor !")
             
         except Exception as e:
 
@@ -52,9 +64,8 @@ def pytest_sessionstart(session):
 
     except Exception as e:
 
-        logging.info(f"Falha ao conectar com o servidor Flask ! \n")
         logging.debug(e)
-        pytest.exit("Os testes foram finalidados devido a falta de conexão com o servidor !")
+        pytest.exit("Os testes foram finalidados devido o servidor Flask não estar configurado corretamente !")
 
 
 @fixture(scope="session",autouse=True)
