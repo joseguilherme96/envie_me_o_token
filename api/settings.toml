@@ -14,7 +14,8 @@ pythonpath="api"
 path_image_schema_bd = "api/src/schema"
 BASE_URL = "http://127.0.0.1:5000"
 API_SOAP_AUTORIZACAO_EXECUCAO_SP_SADT = "http://fakeapi.com.br"
-  
+TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.KMUFsIDTnFmyG3nMiGM6H9FNFUROf3wh7SmqJp-QV30"
+
 [testing]  
 DEBUG = true  
 BD_NAME = "testing.db"
@@ -31,6 +32,7 @@ path_image_schema_bd = "api/src/schema"
 BASE_URL = "http://127.0.0.1:5000"
 API_SOAP_AUTORIZACAO_EXECUCAO_SP_SADT = "http://fakeapi.com.br" 
 DATABASE_URL = "sqlite:///C:\\xampp\\htdocs\\envie_me_o_token\\api\\src\\instance\\testing.db"  
+TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.KMUFsIDTnFmyG3nMiGM6H9FNFUROf3wh7SmqJp-QV30"
 
 [staging]  
 DEBUG = true  
@@ -48,6 +50,7 @@ path_image_schema_bd = "api/src/schema"
 BASE_URL = "http://127.0.0.1:5000"
 API_SOAP_AUTORIZACAO_EXECUCAO_SP_SADT = "http://fakeapi.com.br" 
 DATABASE_URL = "mysql+pymysql://root@localhost:3306/staging"  
+TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.KMUFsIDTnFmyG3nMiGM6H9FNFUROf3wh7SmqJp-QV30"
   
 [production]  
 DEBUG = false
@@ -66,3 +69,4 @@ BASE_URL = "http://127.0.0.1:5000"
 API_SOAP_AUTORIZACAO_EXECUCAO_SP_SADT = "http://fakeapi.com.br" 
 DATABASE_URL = "mysql+pymysql://root@localhost:3306/production"
 USE_CLASS_FAKE = false
+TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.KMUFsIDTnFmyG3nMiGM6H9FNFUROf3wh7SmqJp-QV30"

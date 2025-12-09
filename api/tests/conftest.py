@@ -124,7 +124,7 @@ def environment(request):
 
     return request.config.getoption("--environment")
 
-@fixture
+@fixture(scope="session")
 def app(db_url):
 
     test_config = {
