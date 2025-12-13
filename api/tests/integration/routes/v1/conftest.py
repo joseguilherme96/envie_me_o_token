@@ -34,14 +34,14 @@ def beneficiario(app,request_fixture,numero_carteira,atendimento_rn,nome_benefic
 
     yield response_json
 
-@fixture(scope="session")
-def contratado():
+@fixture
+def contratado(codigo_prestador_na_operadora,nome_contratado,carater_atendimento,tipo_atendimento):
 
     response = requests.post(f"{settings.BASE_URL}/contratado", json={
-        "codigo_prestador_na_operadora": 1221,
-        "nome_contratado": "Hospital São José",
-        "carater_atendimento": 1,
-        "tipo_atendimento": 1,
+        "codigo_prestador_na_operadora": codigo_prestador_na_operadora,
+        "nome_contratado": nome_contratado,
+        "carater_atendimento": carater_atendimento,
+        "tipo_atendimento": tipo_atendimento,
     })
     response_json = response.json()
     response_json["status_code"] = response.status_code
