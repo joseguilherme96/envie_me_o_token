@@ -48,16 +48,16 @@ def contratado(codigo_prestador_na_operadora,nome_contratado,carater_atendimento
 
     yield response_json
 
-@fixture(scope="session")
-def solicitante():
+@fixture
+def solicitante(codigo_solicitante,profissional_solicitante,conselho_profissional,numero_conselho_profissional,uf,cbos,):
 
     response = requests.post(f"{settings.BASE_URL}/solicitante", json={
-        "codigo_solicitante": 1001,
-        "profissional_solicitante": "Dr. Maria Santos",
-        "conselho_profissional": 1,
-        "numero_conselho_profissional": "123456",
-        "uf": 35,
-        "cbos": 225125
+        "codigo_solicitante": codigo_solicitante,
+        "profissional_solicitante": profissional_solicitante,
+        "conselho_profissional": conselho_profissional,
+        "numero_conselho_profissional": numero_conselho_profissional,
+        "uf": uf,
+        "cbos": cbos
     })
     response_json = response.json()
     response_json["status_code"] = response.status_code
