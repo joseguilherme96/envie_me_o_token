@@ -5,6 +5,7 @@ from src.routes.v1.tipo_user.index import tipo_user
 from src.routes.v1.status.index import status
 from src.routes.v1.contratado.index import contratado
 from src.routes.v1.beneficiario.index import beneficiario
+from src.routes.v1.operadora.index import operadora
 from src.models.db import db
 from config import settings
 from dynaconf import FlaskDynaconf
@@ -25,6 +26,7 @@ def create_app(app_config=None):
     app.register_blueprint(status)
     app.register_blueprint(contratado)
     app.register_blueprint(beneficiario)
+    app.register_blueprint(operadora)
     
     if app_config:
 

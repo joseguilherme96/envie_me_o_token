@@ -64,12 +64,12 @@ def solicitante():
 
     yield response_json
 
-@fixture(scope="session")
-def operadora():
+@fixture
+def operadora(registro_ans,nome_operadora):
 
     response = requests.post(f"{settings.BASE_URL}/operadora", json={
-        "registro_ans": 123456,
-        "operadora": "Operadora Saúde"
+        "registro_ans": registro_ans,
+        "operadora": nome_operadora
     })
     response_json = response.json()
     response_json["status_code"] = response.status_code
