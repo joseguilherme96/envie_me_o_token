@@ -46,9 +46,9 @@ def pytest_sessionstart(session):
             response = requests.get(f"{settings.BASE_URL}/status")
             response_json = response.json()
 
-            logging.debug(f"Ambiente no servidor : {response_json['enviroment']}")
+            logging.debug(f"Ambiente no servidor : {response_json['environment']}")
 
-            if  response_json["enviroment"] != settings.ENV_FOR_DYNACONF:
+            if  response_json["environment"] != settings.ENV_FOR_DYNACONF:
 
                 raise Exception("O ambiente que está sendo executado o teste é diferente do ambiente que está sendo executado no servidor !")
             

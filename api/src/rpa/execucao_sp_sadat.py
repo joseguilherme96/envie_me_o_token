@@ -14,7 +14,19 @@ class ExecucaoSPSADAT(AbstractExecucaoSPSADAT):
 
     def processar_rpa(self):
 
-        pass
+        try:
+
+            self.validar_dados_a_enviar()
+            self.solicitar_autorizacao()
+            self.validar_autorizacao()
+            self.salvar_autorizacao()
+
+            self.processado = True
+        
+        except Exception as e:
+
+            self.processado = False
+            raise e
 
     def validar_dados_a_enviar(self):
 
@@ -22,7 +34,7 @@ class ExecucaoSPSADAT(AbstractExecucaoSPSADAT):
 
     def solicitar_autorizacao(self):
 
-        logging.info("Solicitando autorização...")
+        logging.info("Solicitando autorização no Web Service SOAP...")
         request = FakeRequestSPSADT("http://apifake.com")
         self.status_code, self.response = request.executar_request_sp_sadt(self.dados_sp_sadat)
 
