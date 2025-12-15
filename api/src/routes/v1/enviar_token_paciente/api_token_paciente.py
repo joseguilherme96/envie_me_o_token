@@ -2,6 +2,7 @@ from src.abstract.abstract_api_token_paciente import AbstractAPITokenPaciente
 from flask import jsonify
 from src.factory.factory_execucao_sp_sadt import FactoryExecucaoSPSADT
 from src.factory.factory_request_sp_sadt_data_xml import FactoryRequestSPSADTDataXML
+import logging
 
 class APITokenPaciente(AbstractAPITokenPaciente):
 
@@ -21,6 +22,8 @@ class APITokenPaciente(AbstractAPITokenPaciente):
         self.dados_exec_sp_sadat =  {"paciente": "Henrique","numero_carteirinha":"32424242242424242"}
 
     def enviar_dados_para_execucao_sp_sadt(self):
+
+        logging.info("Recebendo dados para execução do SP SADT...")
 
         try:
 

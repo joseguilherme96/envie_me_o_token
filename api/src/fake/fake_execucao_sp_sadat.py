@@ -1,5 +1,6 @@
 from src.abstract.abstract_execucao_sp_sadat import AbstractExecucaoSPSADAT
 from src.fake.fake_resquest_execucao_sp_sadat import FakeRequestSPSADT
+import logging
 
 class FakeExecucaoSPSADAT(AbstractExecucaoSPSADAT):
 
@@ -33,8 +34,12 @@ class FakeExecucaoSPSADAT(AbstractExecucaoSPSADAT):
 
     def solicitar_autorizacao(self):
 
+        logging.info("Solicitando autorização no Web Service SOAP...")
+        logging.debug(self.dados_sp_sadat)
         request = FakeRequestSPSADT("http://apifake.com")
         self.status_code, self.response = request.executar_request_sp_sadt(self.dados_sp_sadat)
+        logging.debug(self.status_code)
+        logging.debug(self.response)
 
 
     def validar_autorizacao(self):
