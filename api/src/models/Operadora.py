@@ -20,11 +20,11 @@ class Operadora(db.Model):
                 query = query.where(Operadora.registro_ans == where["registro_ans"])
 
             if where.get("operadora"):
-                query = query.where(Operadora.operadora == where["operadora"])
+                query = query.where(Operadora.operadora == int(where["operadora"]))
 
-            execute = query.first()
+            execute = db.session.execute(query)
 
-            return execute
+            return execute.fetchall()
         
         except Exception as e:
             raise

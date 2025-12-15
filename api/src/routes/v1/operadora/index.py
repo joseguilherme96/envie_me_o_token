@@ -16,7 +16,10 @@ def cadastrar_operadora():
         notEmptyOrError(dados, "registro_ans", "O campo registro_ans é obrigatório !")
         notEmptyOrError(dados, "operadora", "O campo operadora é obrigatório !")
 
-        if(Operadora.buscar({"registro_ans": dados["registro_ans"]})):
+        operadora = Operadora.buscar({"registro_ans": dados["registro_ans"]})
+        logging.debug(operadora)
+
+        if(operadora):
             return jsonify({"message": "Já existe uma operadora com o mesmo registro_ans cadastrado !"}), 409
         
         if isinstance(dados.get("operadora"), str) == False:
