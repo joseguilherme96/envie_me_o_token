@@ -39,6 +39,8 @@ def cadastrar_beneficiario():
             nome_beneficiario=dados["nome_beneficiario"]
         )
         dados = Beneficiario.inserir(data)
+
+        logging.debug(dados)
         
         return jsonify({"message": "Cadastrado com sucesso !", "data": dados}), 201
     
