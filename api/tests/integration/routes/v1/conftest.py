@@ -5,6 +5,8 @@ import logging
 
 from fixtures.operadora_no_mark_parametrize import operadora_no_mark_parametrize
 from fixtures.execucao_spsadt_no_mark_parametrize import execucao_spsadt_no_mark_parametrize
+from fixtures.execucao_spsadt_no_mark_parametrize import execucao_spsadt_no_mark_parametrize_option_2
+from fixtures.execucao_spsadt_no_mark_parametrize import execucao_spsadt_no_mark_parametrize_option_3
 from fixtures.contratado_no_mark_parametrize import contratado_no_mark_parametrize
 from fixtures.solicitante_no_mark_parametrize import solicitante_no_mark_parametrize
 from fixtures.get_data_execucao_spsadt import get_data_execucao_spsadt
@@ -71,10 +73,10 @@ def contratado(codigo_prestador_na_operadora,nome_contratado,carater_atendimento
     yield response_json
 
 @fixture
-def solicitante(codigo_solicitante,profissional_solicitante,conselho_profissional,numero_conselho_profissional,uf,cbos,):
+def solicitante(codigo_solicitante,profissional_solicitante,conselho_profissional,numero_conselho_profissional,uf,cbos):
 
     response = requests.post(f"{settings.BASE_URL}/solicitante", json={
-        "codigo_solicitante": codigo_solicitante,
+        "codigo_solicitante":codigo_solicitante,
         "profissional_solicitante": profissional_solicitante,
         "conselho_profissional": conselho_profissional,
         "numero_conselho_profissional": numero_conselho_profissional,

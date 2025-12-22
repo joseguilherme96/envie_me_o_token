@@ -147,3 +147,27 @@ def app(db_url):
         db.session.remove()
         db.drop_all()
         db.engine.dispose()
+
+@fixture
+def app_scope_function(db_url):
+
+    test_config = {
+        "SQLALCHEMY_DATABASE_URI": db_url,
+        "SQLALCHEMY_TRACK_MODIFICATIONS": False,
+    }
+    
+    logging.info("Criando app...")
+    logging.debug(f"configuracoes do app : {test_config}")
+    app = create_app(test_config)
+
+    with app.app_context():
+
+        db.create_all()
+        
+        yield app
+
+        db.session.execute(text("DROP TABLE IF EXISTS alembic_version"))
+        db.session.commit()
+        db.session.remove()
+        db.drop_all()
+        db.engine.dispose()
