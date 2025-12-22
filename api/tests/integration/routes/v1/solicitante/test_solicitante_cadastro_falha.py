@@ -9,7 +9,7 @@ from pytest import mark
             ("1001","Dr. Maria","1","123456","","","O campo uf é obrigatório !"),
             ("1001","Dr. Maria","1","123456","35","","O campo cbos é obrigatório !")
 ])
-def test_deve_ocorrer_falha_no_cadastro_devido_ao_valor_que_nao_foi_enviado_no_campo_que_e_obrigatorio(app, solicitante,response):
+def test_deve_ocorrer_falha_no_cadastro_devido_ao_valor_que_nao_foi_enviado_no_campo_que_e_obrigatorio(app, solicitante,response,codigo_solicitante,profissional_solicitante,conselho_profissional,numero_conselho_profissional,uf,cbos):
 
     logging.debug(solicitante)
 
