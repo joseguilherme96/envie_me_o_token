@@ -8,6 +8,8 @@ from src.routes.v1.beneficiario.index import beneficiario
 from src.routes.v1.operadora.index import operadora
 from src.routes.v1.solicitante.index import solicitante
 from src.routes.v1.execucao_spsadt.index import execucao_spsadt
+from src.routes.v1.users.index import users
+from src.routes.v1.execucao_spsadt_procedimento.index import execucao_spsadt_procedimento
 from src.models.db import db
 from config import settings
 from dynaconf import FlaskDynaconf
@@ -31,6 +33,8 @@ def create_app(app_config=None):
     app.register_blueprint(operadora)
     app.register_blueprint(solicitante)
     app.register_blueprint(execucao_spsadt)
+    app.register_blueprint(users)
+    app.register_blueprint(execucao_spsadt_procedimento)
     
     if app_config:
 
