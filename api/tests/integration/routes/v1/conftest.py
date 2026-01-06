@@ -27,6 +27,9 @@ from fixtures.beneficiario_no_mark_parametrize_scope_session import nome_benefic
 from fixtures.beneficiario_no_mark_parametrize_scope_session import atendimento_rn
 from fixtures.beneficiario_no_mark_parametrize_scope_session import numero_carteira
 
+from fixtures.user import user
+from fixtures.user import user_mark_parametrize_scope_function
+
 @fixture
 def setup_tables(app,beneficiario,contratado,solicitante,operadora,tipo_user, user):
 
@@ -105,19 +108,6 @@ def tipo_user():
 
     response = requests.post(f"{settings.BASE_URL}/tipo_user", json={
         "tipo_user": "XXXXXXXXX"
-    })
-    response_json = response.json()
-    response_json["status_code"] = response.status_code
-
-    yield response_json
-
-@fixture(scope="session")
-def user(tipo_user):
-
-    response = requests.post(f"{settings.BASE_URL}/users", json={
-        "login": "usuario_teste",
-        "senha": "senha123",
-        "tipo_usuario_id": tipo_user["data"]["cod_tipo_user"]
     })
     response_json = response.json()
     response_json["status_code"] = response.status_code
