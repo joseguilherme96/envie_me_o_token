@@ -4,9 +4,9 @@ from config import settings
 import logging
 
 @fixture
-def contratado_no_mark_parametrize():
+def contratado_no_mark_parametrize(request_fixture):
 
-    response = requests.post(f"{settings.BASE_URL}/contratado", json={
+    response = request_fixture.post(f"{settings.BASE_URL}/contratado", json={
         "codigo_prestador_na_operadora": "2122323",
         "nome_contratado": "Sonia",
         "carater_atendimento": 1,
@@ -18,9 +18,9 @@ def contratado_no_mark_parametrize():
     yield response_json
 
 @fixture(scope="session")
-def contratado_no_mark_parametrize_scope_session():
+def contratado_no_mark_parametrize_scope_session(request_fixture):
 
-    response = requests.post(f"{settings.BASE_URL}/contratado", json={
+    response = request_fixture.post(f"{settings.BASE_URL}/contratado", json={
         "codigo_prestador_na_operadora": "2323123",
         "nome_contratado": "Sonia",
         "carater_atendimento": 1,

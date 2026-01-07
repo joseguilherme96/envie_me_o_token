@@ -2,6 +2,7 @@ from pytest import fixture,raises,mark
 import requests
 from config import settings
 import logging
+from flask_jwt_extended import create_access_token
 
 from fixtures.operadora_no_mark_parametrize import operadora_no_mark_parametrize
 from fixtures.execucao_spsadt_no_mark_parametrize import execucao_spsadt_no_mark_parametrize
@@ -29,6 +30,7 @@ from fixtures.beneficiario_no_mark_parametrize_scope_session import numero_carte
 
 from fixtures.user import user
 from fixtures.user import user_mark_parametrize_scope_function
+
 
 @fixture
 def setup_tables(app,beneficiario,contratado,solicitante,operadora,tipo_user, user):
@@ -62,9 +64,9 @@ def beneficiario(app,request_fixture,numero_carteira,atendimento_rn,nome_benefic
     yield response_json
 
 @fixture
-def contratado(codigo_prestador_na_operadora,nome_contratado,carater_atendimento,tipo_atendimento):
+def contratado(codigo_prestador_na_operadora,nome_contratado,carater_atendimento,tipo_atendimento,request_fixture):
 
-    response = requests.post(f"{settings.BASE_URL}/contratado", json={
+    response = request_fixture.post(f"{settings.BASE_URL}/contratado", json={
         "codigo_prestador_na_operadora": codigo_prestador_na_operadora,
         "nome_contratado": nome_contratado,
         "carater_atendimento": carater_atendimento,
@@ -76,9 +78,9 @@ def contratado(codigo_prestador_na_operadora,nome_contratado,carater_atendimento
     yield response_json
 
 @fixture
-def solicitante(codigo_solicitante,profissional_solicitante,conselho_profissional,numero_conselho_profissional,uf,cbos):
+def solicitante(codigo_solicitante,profissional_solicitante,conselho_profissional,numero_conselho_profissional,uf,cbos,request_fixture):
 
-    response = requests.post(f"{settings.BASE_URL}/solicitante", json={
+    response = request_fixture.post(f"{settings.BASE_URL}/solicitante", json={
         "codigo_solicitante":codigo_solicitante,
         "profissional_solicitante": profissional_solicitante,
         "conselho_profissional": conselho_profissional,
@@ -92,9 +94,9 @@ def solicitante(codigo_solicitante,profissional_solicitante,conselho_profissiona
     yield response_json
 
 @fixture
-def operadora(registro_ans,nome_operadora):
+def operadora(registro_ans,nome_operadora,request_fixture):
 
-    response = requests.post(f"{settings.BASE_URL}/operadora", json={
+    response = request_fixture.post(f"{settings.BASE_URL}/operadora", json={
         "registro_ans": registro_ans,
         "operadora": nome_operadora
     })
@@ -104,9 +106,9 @@ def operadora(registro_ans,nome_operadora):
     yield response_json
 
 @fixture(scope="session")
-def tipo_user():
+def tipo_user(request_fixture):
 
-    response = requests.post(f"{settings.BASE_URL}/tipo_user", json={
+    response = request_fixture.post(f"{settings.BASE_URL}/tipo_user", json={
         "tipo_user": "XXXXXXXXX"
     })
     response_json = response.json()
@@ -119,8 +121,10 @@ def request_fixture():
    
    request = requests.Session()
 
+   access_token = create_access_token(identity="usuario_teste")
+
    request.headers.update({
-       "Authorization" : f"Bearer {settings.TOKEN}"
+       "Authorization" : f"Bearer {access_token}"
    })
 
    yield request

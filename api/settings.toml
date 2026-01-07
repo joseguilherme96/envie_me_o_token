@@ -14,7 +14,7 @@ pythonpath="api"
 path_image_schema_bd = "api/src/schema"
 BASE_URL = "http://127.0.0.1:5000"
 API_SOAP_AUTORIZACAO_EXECUCAO_SP_SADT = "http://fakeapi.com.br"
-TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.KMUFsIDTnFmyG3nMiGM6H9FNFUROf3wh7SmqJp-QV30"
+JWT_SECRET_KEY="8*2@jwje#djdjd*11222*11"
 
 [testing]  
 DEBUG = true  
@@ -31,8 +31,8 @@ pythonpath="api"
 path_image_schema_bd = "api/src/schema"
 BASE_URL = "http://127.0.0.1:5000"
 API_SOAP_AUTORIZACAO_EXECUCAO_SP_SADT = "http://fakeapi.com.br" 
-DATABASE_URL = "sqlite:///C:\\xampp\\htdocs\\envie_me_o_token\\api\\src\\instance\\testing.db"  
-TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.KMUFsIDTnFmyG3nMiGM6H9FNFUROf3wh7SmqJp-QV30"
+DATABASE_URL = "sqlite:///C:\\xampp\\htdocs\\envie_me_o_token\\api\\src\\instance\\testing.db"
+JWT_SECRET_KEY="8*2@jwje#djdjd*11222*11"
 
 [staging]  
 DEBUG = true  
@@ -49,9 +49,9 @@ pythonpath="api"
 path_image_schema_bd = "api/src/schema"
 BASE_URL = "http://127.0.0.1:5000"
 API_SOAP_AUTORIZACAO_EXECUCAO_SP_SADT = "http://fakeapi.com.br" 
-DATABASE_URL = "mysql+pymysql://root@localhost:3306/staging"  
-TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.KMUFsIDTnFmyG3nMiGM6H9FNFUROf3wh7SmqJp-QV30"
-  
+DATABASE_URL = "mysql+pymysql://root@localhost:3306/staging"
+JWT_SECRET_KEY="8*2@jwje#djdjd*11222*11"
+
 [production]  
 DEBUG = false
 BD_NAME = "production"
@@ -69,4 +69,4 @@ BASE_URL = "http://127.0.0.1:5000"
 API_SOAP_AUTORIZACAO_EXECUCAO_SP_SADT = "http://fakeapi.com.br" 
 DATABASE_URL = "mysql+pymysql://root@localhost:3306/production"
 USE_CLASS_FAKE = false
-TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.KMUFsIDTnFmyG3nMiGM6H9FNFUROf3wh7SmqJp-QV30"
+JWT_SECRET_KEY="8*2@jwje#djdjd*11222*11"
