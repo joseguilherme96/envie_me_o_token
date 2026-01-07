@@ -16,7 +16,7 @@ def test_cadastro_deve_falhar_pois_ja_foi_cadastrado_uma_operadora_com_mesmo_reg
     }
     endpoint = f"{settings.BASE_URL}/operadora"
 
-    response = requests.post(endpoint, json=data)
+    response = request_fixture.post(endpoint, json=data)
     response_json = response.json()
 
     assert response.status_code == 409

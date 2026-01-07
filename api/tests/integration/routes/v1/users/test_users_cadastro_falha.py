@@ -25,7 +25,7 @@ def test_as_senhas_devem_ser_invalidadas(app, user_mark_parametrize_scope_functi
 ])
 def test_o_usuario_nao_deve_ser_cadastrado_novamente_devido_ja_existir_na_base_de_dados(app,tipo_user,user_mark_parametrize_scope_function,request_fixture,login,senha,mensagem):
 
-    response = requests.post(f"{settings.BASE_URL}/users", json={
+    response = request_fixture.post(f"{settings.BASE_URL}/users", json={
         "login": login,
         "senha": senha,
         "tipo_usuario_id": tipo_user["data"]["cod_tipo_user"]

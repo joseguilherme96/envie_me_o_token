@@ -36,6 +36,10 @@ class Users(db.Model):
 
                 query = query.where(Users.login == where['login'])
 
+            if where.get("senha"):
+
+                query = query.where(Users.senha == where['senha'])
+
             logging.debug(query)
             execute = db.session.execute(query)
 

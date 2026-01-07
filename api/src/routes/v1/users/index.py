@@ -3,13 +3,18 @@ from src.models.Users import Users
 from werkzeug.security import generate_password_hash
 import logging
 from src.utils.not_empty_or_error import notEmptyOrError
+from flask_jwt_extended import jwt_required
 
 users = Blueprint("users", __name__)
 
 @users.route('/users', methods=["POST"])
+@jwt_required()
 def cadastrar_users():
     try:
         dados = request.get_json()
+
+        logging.debug(request.headers)
+        logging.debug(dados)
 
         notEmptyOrError(dados,"login","O campo login não deve ser vazio !")
         notEmptyOrError(dados,"senha","O campo senha não deve ser vazia !")

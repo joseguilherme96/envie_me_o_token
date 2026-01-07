@@ -4,9 +4,9 @@ from config import settings
 from pytest import mark
 
 
-def test_cadastro_execucao_spsadt_procedimento(execucao_spsadt_no_mark_parametrize_option_2):
+def test_cadastro_execucao_spsadt_procedimento(execucao_spsadt_no_mark_parametrize_option_2,request_fixture):
 
-        response = requests.post(f"{settings.BASE_URL}/execucao_spsadt_procedimento", json={
+        response = request_fixture.post(f"{settings.BASE_URL}/execucao_spsadt_procedimento", json={
             "codigo_procedimento": 1,
             "codigo_execucao": execucao_spsadt_no_mark_parametrize_option_2["data"]["codigo_execucao"],
             "descricao_procedimento": "Fisioterapia",
