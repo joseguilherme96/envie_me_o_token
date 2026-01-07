@@ -2,10 +2,12 @@ from flask import Blueprint, jsonify, request
 from src.models.Beneficiario import Beneficiario
 from src.models.db import db
 import logging
+from flask_jwt_extended import jwt_required
 
 beneficiario = Blueprint("beneficiario", __name__)
 
 @beneficiario.route('/beneficiario', methods=["POST"])
+@jwt_required()
 def cadastrar_beneficiario():
     try:
         header = request.headers

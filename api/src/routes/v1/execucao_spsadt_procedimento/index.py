@@ -4,10 +4,12 @@ from src.models.ExecucaoSPSADT import ExecucaoSPSADT
 from src.utils.is_numeric_or_error  import isNumericOrError
 from src.utils.not_empty_or_error import notEmptyOrError
 import logging
+from flask_jwt_extended import jwt_required
 
 execucao_spsadt_procedimento = Blueprint("execucao_spsadt_procedimento", __name__)
 
 @execucao_spsadt_procedimento.route('/execucao_spsadt_procedimento', methods=["POST"])
+@jwt_required()
 def cadastrar_execucao_spsadt_procedimento():
     try:
         dados = request.get_json()
