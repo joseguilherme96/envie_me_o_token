@@ -10,12 +10,14 @@ from src.routes.v1.solicitante.index import solicitante
 from src.routes.v1.execucao_spsadt.index import execucao_spsadt
 from src.routes.v1.execucao_spsadt_procedimento.index import execucao_spsadt_procedimento
 from src.routes.v1.users.index import users
+from src.routes.v1.login.index import login
 from src.models.db import db
 from config import settings
 from dynaconf import FlaskDynaconf
 import logging
 from src.config_migrate import instancia_migrate
 from logging.config import dictConfig
+from flask_jwt_extended import JWTManager
 
 def create_app(app_config=None):
 
@@ -35,6 +37,7 @@ def create_app(app_config=None):
     app.register_blueprint(execucao_spsadt)
     app.register_blueprint(execucao_spsadt_procedimento)
     app.register_blueprint(users)
+    app.register_blueprint(login)
     
     if app_config:
 
@@ -48,6 +51,8 @@ def create_app(app_config=None):
         app.config["SQLALCHEMY_DATABASE_URI"] = settings.DATABASE_URL
 
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    app.config["JWT_SECRET_KEY"] = settings.JWT_SECRET_KEY
+    jwt = JWTManager(app)
 
     logging.debug(f"ENV_FOR_DYNACONF : {settings.ENV_FOR_DYNACONF}")
     logging.debug(f"DATABASE_URL : {settings.DATABASE_URL}")
