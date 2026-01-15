@@ -49,7 +49,7 @@ def test_deve_ocorrer_falha_no_cadastro_na_execucao_sp_sadt_pois_alguns_dados_en
                     ("", "", "", 2211,"O operadora_registro_ans não está cadastrado !",3),
         ])
 def test_nao_deve_ser_cadastrado_a_execucao_sp_sadt_pois_a_codigos_com_vinculos_externos_enviados_que_nao_existem(app,codigo_beneficiario,codigo_contratado,codigo_solicitante,
-operadora_registro_ans,response_expected,interacao,request_fixture,beneficiario_no_mark_parametrize_scope_session,contratado_no_mark_parametrize_scope_session,
+operadora_registro_ans,response_expected,interacao,client_app,beneficiario_no_mark_parametrize_scope_session,contratado_no_mark_parametrize_scope_session,
 solicitante_no_mark_parametrize_scope_session,operadora_no_mark_parametrize_scope_session):
     
     use_codigo_criado_nas_fixtures_conforme_interacao = [
@@ -62,7 +62,7 @@ solicitante_no_mark_parametrize_scope_session,operadora_no_mark_parametrize_scop
 
     start = interacao + 1
 
-    response = request_fixture.post(f"{settings.BASE_URL}/execucao_spsadt", json={
+    response = client_app.post(f"{settings.BASE_URL}/execucao_spsadt", json={
             "codigo_beneficiario": beneficiario_no_mark_parametrize_scope_session['data']['numero_carteira'] if use_codigo_criado_nas_fixtures_conforme_interacao[start][0] else codigo_beneficiario,
             "codigo_contratado": contratado_no_mark_parametrize_scope_session['data']['codigo_prestador_na_operadora'] if use_codigo_criado_nas_fixtures_conforme_interacao[start][1] else codigo_contratado,
             "codigo_solicitante": solicitante_no_mark_parametrize_scope_session['data']['codigo_solicitante'] if use_codigo_criado_nas_fixtures_conforme_interacao[start][2] else codigo_solicitante,
@@ -75,7 +75,7 @@ solicitante_no_mark_parametrize_scope_session,operadora_no_mark_parametrize_scop
             "tipo_transacao": "SOLICITACAO_AUTORIZACAO"
         })
 
-    response_json = response.json()
+    response_json = response.json
 
     assert response_json["message"] == response_expected
     assert response.status_code == 404

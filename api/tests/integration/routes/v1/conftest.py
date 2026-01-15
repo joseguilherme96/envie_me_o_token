@@ -29,6 +29,7 @@ from fixtures.beneficiario_no_mark_parametrize_scope_session import atendimento_
 from fixtures.beneficiario_no_mark_parametrize_scope_session import numero_carteira
 
 from fixtures.user import user
+from fixtures.user import user_scope_function
 from fixtures.user import user_mark_parametrize_scope_function
 
 
@@ -42,7 +43,7 @@ def setup_tables(app,beneficiario,contratado,solicitante,operadora,tipo_user, us
     logging.info("Finalizando setup das tabelas : beneficiario, contratado, solicitante, operadora, tipo_user e user")
 
 @fixture
-def beneficiario(app,request_fixture,numero_carteira,atendimento_rn,nome_beneficiario,response_status_code,response_message):
+def beneficiario(app,client_app,numero_carteira,atendimento_rn,nome_beneficiario,response_status_code,response_message):
 
     endpoint = f"{settings.BASE_URL}/beneficiario"
     data = {
@@ -54,33 +55,33 @@ def beneficiario(app,request_fixture,numero_carteira,atendimento_rn,nome_benefic
     logging.debug(data)
     logging.debug(endpoint)
 
-    response = request_fixture.post(endpoint, json=data)
+    response = client_app.post(endpoint, json=data)
 
     logging.debug(response)
 
-    response_json = response.json()
+    response_json = response.json
     response_json["status_code"] = response.status_code
 
     yield response_json
 
 @fixture
-def contratado(codigo_prestador_na_operadora,nome_contratado,carater_atendimento,tipo_atendimento,request_fixture):
+def contratado(codigo_prestador_na_operadora,nome_contratado,carater_atendimento,tipo_atendimento,client_app):
 
-    response = request_fixture.post(f"{settings.BASE_URL}/contratado", json={
+    response = client_app.post(f"{settings.BASE_URL}/contratado", json={
         "codigo_prestador_na_operadora": codigo_prestador_na_operadora,
         "nome_contratado": nome_contratado,
         "carater_atendimento": carater_atendimento,
         "tipo_atendimento": tipo_atendimento,
     })
-    response_json = response.json()
+    response_json = response.json
     response_json["status_code"] = response.status_code
 
     yield response_json
 
 @fixture
-def solicitante(codigo_solicitante,profissional_solicitante,conselho_profissional,numero_conselho_profissional,uf,cbos,request_fixture):
+def solicitante(codigo_solicitante,profissional_solicitante,conselho_profissional,numero_conselho_profissional,uf,cbos,client_app_scope_function):
 
-    response = request_fixture.post(f"{settings.BASE_URL}/solicitante", json={
+    response = client_app_scope_function.post(f"{settings.BASE_URL}/solicitante", json={
         "codigo_solicitante":codigo_solicitante,
         "profissional_solicitante": profissional_solicitante,
         "conselho_profissional": conselho_profissional,
@@ -88,45 +89,41 @@ def solicitante(codigo_solicitante,profissional_solicitante,conselho_profissiona
         "uf": uf,
         "cbos": cbos
     })
-    response_json = response.json()
+    response_json = response.json
     response_json["status_code"] = response.status_code
 
     yield response_json
 
 @fixture
-def operadora(registro_ans,nome_operadora,request_fixture):
+def operadora(registro_ans,nome_operadora,client_app_scope_function):
 
-    response = request_fixture.post(f"{settings.BASE_URL}/operadora", json={
+    response = client_app_scope_function.post(f"{settings.BASE_URL}/operadora", json={
         "registro_ans": registro_ans,
         "operadora": nome_operadora
     })
-    response_json = response.json()
+    response_json = response.json
     response_json["status_code"] = response.status_code
 
     yield response_json
 
 @fixture(scope="session")
-def tipo_user(request_fixture):
+def tipo_user(client_app):
 
-    response = request_fixture.post(f"{settings.BASE_URL}/tipo_user", json={
-        "tipo_user": "XXXXXXXXX"
+    response = client_app.post(f"{settings.BASE_URL}/tipo_user", json={
+        "tipo_user": "Prestador"
     })
-    response_json = response.json()
+    response_json = response.json
     response_json["status_code"] = response.status_code
 
     yield response_json
 
-@fixture(scope="session")
-def request_fixture():
-   
-   request = requests.Session()
+@fixture(scope="function")
+def tipo_user_scope_function(client_app_scope_function):
 
-   access_token = create_access_token(identity="usuario_teste")
+    response = client_app_scope_function.post(f"{settings.BASE_URL}/tipo_user", json={
+        "tipo_user": "Prestador"
+    })
+    response_json = response.json
+    response_json["status_code"] = response.status_code
 
-   request.headers.update({
-       "Authorization" : f"Bearer {access_token}"
-   })
-
-   yield request
-
-   request.close()
+    yield response_json
