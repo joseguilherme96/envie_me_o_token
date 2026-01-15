@@ -29,3 +29,7 @@ class TipoUser(db.Model):
             db.session.rollback()
 
             raise
+
+        finally:
+
+            db.session.close()

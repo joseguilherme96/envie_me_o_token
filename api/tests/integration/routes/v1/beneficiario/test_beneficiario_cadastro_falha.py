@@ -18,7 +18,7 @@ def test_nao_deve_cadastrar_beneficiario_com_parametro_atendimento_rn_invalido(b
     atendimento_rn=st.booleans(),
     nome_beneficiario=st.text(alphabet=characters(min_codepoint=97, max_codepoint=122), min_size=3, max_size=70)
 )
-def test_nao_deve_cadastrar_beneficiario_pois_o_valor_enviado_nao_e_um_numero_de_carteirinha(app, numero_carteira, atendimento_rn, nome_beneficiario,request_fixture):
+def test_nao_deve_cadastrar_beneficiario_pois_o_valor_enviado_nao_e_um_numero_de_carteirinha(app, numero_carteira, atendimento_rn, nome_beneficiario,client_app):
 
     endpoint = f"{settings.BASE_URL}/beneficiario"
     data = {
@@ -26,9 +26,9 @@ def test_nao_deve_cadastrar_beneficiario_pois_o_valor_enviado_nao_e_um_numero_de
     "atendimento_rn": atendimento_rn,
     "nome_beneficiario": nome_beneficiario
     }
-    response = request_fixture.post(endpoint, json=data)
+    response = client_app.post(endpoint, json=data)
 
     logging.debug(response)
 
     assert response.status_code == 400
-    assert response.json()["message"] == "O campo numero_carteira deve ser um inteiro !"
+    assert response.json["message"] == "O campo numero_carteira deve ser um inteiro !"

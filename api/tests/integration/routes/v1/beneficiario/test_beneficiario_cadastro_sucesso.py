@@ -23,23 +23,23 @@ test_com_numeros_nao_repetidos = []
     atendimento_rn=st.booleans(),
     nome_beneficiario=st.text(alphabet=characters(min_codepoint=97, max_codepoint=122), min_size=3, max_size=70)
 )
-def test_deve_cadastrar_beneficiario_com_dados_gerados_em_massa(app,numero_carteira,atendimento_rn,nome_beneficiario,request_fixture):
+def test_deve_cadastrar_beneficiario_com_dados_gerados_em_massa(app,numero_carteira,atendimento_rn,nome_beneficiario,client_app):
 
     if numero_carteira not in test_com_numeros_nao_repetidos:
 
         test_com_numeros_nao_repetidos.append(numero_carteira)
         
-        response = request_fixture.post(f"{settings.BASE_URL}/beneficiario", json={
+        response = client_app.post(f"{settings.BASE_URL}/beneficiario", json={
         "numero_carteira": numero_carteira,
         "atendimento_rn": atendimento_rn,
         "nome_beneficiario": nome_beneficiario
         })
 
         logging.debug(response)  
-        logging.debug(response.json())
+        logging.debug(response.json)
 
         assert response.status_code == 201
-        assert response.json()["message"] == "Cadastrado com sucesso !"
+        assert response.json["message"] == "Cadastrado com sucesso !"
 
         
 

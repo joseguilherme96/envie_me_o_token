@@ -8,7 +8,7 @@ from config import settings
     (1,1,"",10,"O campo descricao_procedimento deve ser preenchido !",400,2),
     (1,1,"Fisioterapia","","O campo quantidade_solicitada deve ser preenchido !",400,3),
 ])
-def test_deve_ocorrer_falha_no_cadastro_devido_aos_campos_estarem_em_brancos(execucao_spsadt_no_mark_parametrize_option_2, request_fixture,codigo_procedimento,codigo_execucao,descricao_procedimento,quantidade_solicitada,response_message,response_status_code,index):
+def test_deve_ocorrer_falha_no_cadastro_devido_aos_campos_estarem_em_brancos(execucao_spsadt_no_mark_parametrize_option_2, client_app,codigo_procedimento,codigo_execucao,descricao_procedimento,quantidade_solicitada,response_message,response_status_code,index):
 
     usar_codigo_cadastrado = [
         [False,False],
@@ -26,8 +26,8 @@ def test_deve_ocorrer_falha_no_cadastro_devido_aos_campos_estarem_em_brancos(exe
 
     }
 
-    response = request_fixture.post(f"{settings.BASE_URL}/execucao_spsadt_procedimento",json=payload)
-    response_json =response.json()
+    response = client_app.post(f"{settings.BASE_URL}/execucao_spsadt_procedimento",json=payload)
+    response_json =response.json
 
     assert response_json["message"] == response_message
     assert response.status_code == response_status_code
@@ -37,7 +37,7 @@ def test_deve_ocorrer_falha_no_cadastro_devido_aos_campos_estarem_em_brancos(exe
     (12121,"sdsdsd","Fisioterapia",10,"O campo codigo_execucao deve ser um numero inteiro !",400,1),
     (1,1,"Fisioterapia","adad","O campo quantidade_solicitada deve ser um numero inteiro !",400,2),
 ])
-def test_alguns_campos_enviados_devem_ser_numeros_inteiros(execucao_spsadt_no_mark_parametrize_option_2, request_fixture,codigo_procedimento,codigo_execucao,descricao_procedimento,quantidade_solicitada,response_message,response_status_code,index):
+def test_alguns_campos_enviados_devem_ser_numeros_inteiros(execucao_spsadt_no_mark_parametrize_option_2, client_app,codigo_procedimento,codigo_execucao,descricao_procedimento,quantidade_solicitada,response_message,response_status_code,index):
     
     usar_codigo_cadastrado = [
         [False,False],
@@ -55,13 +55,13 @@ def test_alguns_campos_enviados_devem_ser_numeros_inteiros(execucao_spsadt_no_ma
 
     }
 
-    response = request_fixture.post(f"{settings.BASE_URL}/execucao_spsadt_procedimento",json=payload)
-    response_json =response.json()
+    response = client_app.post(f"{settings.BASE_URL}/execucao_spsadt_procedimento",json=payload)
+    response_json =response.json
 
     assert response_json["message"] == response_message
     assert response.status_code == response_status_code
 
-def test_o_valor_do_campo_descricao_enviado_deve_ser_um_texto(execucao_spsadt_no_mark_parametrize_option_3,request_fixture):
+def test_o_valor_do_campo_descricao_enviado_deve_ser_um_texto(execucao_spsadt_no_mark_parametrize_option_3,client_app):
 
     payload = {
         "codigo_procedimento": 1,
@@ -71,13 +71,13 @@ def test_o_valor_do_campo_descricao_enviado_deve_ser_um_texto(execucao_spsadt_no
 
     }
 
-    response = request_fixture.post(f"{settings.BASE_URL}/execucao_spsadt_procedimento",json=payload)
-    response_json =response.json()
+    response = client_app.post(f"{settings.BASE_URL}/execucao_spsadt_procedimento",json=payload)
+    response_json =response.json
 
     assert response_json["message"] == "O campo descricao_procedimento deve ser um texto !"
     assert response.status_code == 400
 
-def test_o_valor_codigo_execucao_enviado_nao_deve_ser_valido(execucao_spsadt_no_mark_parametrize_option_3,request_fixture):
+def test_o_valor_codigo_execucao_enviado_nao_deve_ser_valido(execucao_spsadt_no_mark_parametrize_option_3,client_app):
 
     payload = {
         "codigo_procedimento": 1,
@@ -87,8 +87,8 @@ def test_o_valor_codigo_execucao_enviado_nao_deve_ser_valido(execucao_spsadt_no_
 
     }
 
-    response = request_fixture.post(f"{settings.BASE_URL}/execucao_spsadt_procedimento",json=payload)
-    response_json =response.json()
+    response = client_app.post(f"{settings.BASE_URL}/execucao_spsadt_procedimento",json=payload)
+    response_json =response.json
 
     assert response_json["message"] == "Não foi encontrado o codigo_execucao informado !"
     assert response.status_code == 404

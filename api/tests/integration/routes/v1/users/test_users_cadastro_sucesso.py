@@ -1,8 +1,8 @@
 import logging
 
-def test_deve_ser_cadastrado_usuario(app,user):
+def test_deve_ser_cadastrado_usuario(user_scope_function):
 
-    logging.debug(user)
+    logging.debug(user_scope_function)
 
-    assert user["message"] == "Cadastrado com sucesso!"
-    assert user["status_code"] == 201
+    assert user_scope_function["message"] == "Cadastrado com sucesso!"
+    assert user_scope_function["status_code"] == 201

@@ -7,7 +7,7 @@ from config import settings
                   [
                       ("123456789012",False,"José",False,201,"Cadastrado com sucesso !"),
                   ])
-def test_nao_deve_cadastrar_o_mesmo_beneficiario_duas_vezes(app,beneficiario,numero_carteira, atendimento_rn, nome_beneficiario,executar_spsadt,response_status_code,response_message,request_fixture):
+def test_nao_deve_cadastrar_o_mesmo_beneficiario_duas_vezes(app,beneficiario,numero_carteira, atendimento_rn, nome_beneficiario,executar_spsadt,response_status_code,response_message,client_app):
 
 
     logging.debug(beneficiario)
@@ -22,9 +22,9 @@ def test_nao_deve_cadastrar_o_mesmo_beneficiario_duas_vezes(app,beneficiario,num
     logging.debug(data)
     logging.debug(endpoint)
 
-    response = request_fixture.post(endpoint, json=data)
+    response = client_app.post(endpoint, json=data)
 
     logging.debug(response)
 
     assert response.status_code == 409
-    assert response.json()["message"] == "Beneficiário já cadastrado !"
+    assert response.json["message"] == "Beneficiário já cadastrado !"

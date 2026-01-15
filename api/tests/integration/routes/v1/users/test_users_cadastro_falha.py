@@ -6,7 +6,7 @@ from config import settings
     ("","24dsdf","O campo login não deve ser vazio !"),
     ("jdjdjd","","O campo senha não deve ser vazia !")
 ])
-def test_nao_deve_ser_cadastrado_login_devido_os_campos_estarem_em_brancos(app,user_mark_parametrize_scope_function,mensagem):
+def test_nao_deve_ser_cadastrado_login_devido_os_campos_estarem_em_brancos(user_mark_parametrize_scope_function,mensagem):
 
     assert user_mark_parametrize_scope_function["status_code"] == 400
     assert user_mark_parametrize_scope_function["message"] == mensagem
@@ -23,14 +23,14 @@ def test_as_senhas_devem_ser_invalidadas(app, user_mark_parametrize_scope_functi
 @mark.parametrize("login,senha,mensagem",[
     ("testse9@teste.com.br","123456jf","O usuário já existe !"),
 ])
-def test_o_usuario_nao_deve_ser_cadastrado_novamente_devido_ja_existir_na_base_de_dados(app,tipo_user,user_mark_parametrize_scope_function,request_fixture,login,senha,mensagem):
+def test_o_usuario_nao_deve_ser_cadastrado_novamente_devido_ja_existir_na_base_de_dados(tipo_user_scope_function,user_mark_parametrize_scope_function,client_app_scope_function,login,senha,mensagem):
 
-    response = request_fixture.post(f"{settings.BASE_URL}/users", json={
+    response = client_app_scope_function.post(f"{settings.BASE_URL}/users", json={
         "login": login,
         "senha": senha,
-        "tipo_usuario_id": tipo_user["data"]["cod_tipo_user"]
+        "tipo_usuario_id": tipo_user_scope_function["data"]["cod_tipo_user"]
     })
 
-    response_json = response.json()
+    response_json = response.json
 
     assert response.status_code == 409

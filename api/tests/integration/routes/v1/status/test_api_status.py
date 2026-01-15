@@ -1,12 +1,12 @@
 from config import settings
 import requests
 
-def test_api_status_servidor_flask():
+def test_api_status_servidor_flask(client_app):
 
-    response = requests.get(f"{settings.BASE_URL}/status")
+    response = client_app.get(f"{settings.BASE_URL}/status")
     assert response.status_code == 200
 
-    response_json = response.json()
+    response_json = response.json
 
     assert response_json["environment"] == settings.ENV_FOR_DYNACONF
     assert response_json["db"].split("\\").pop() == settings.BD_NAME
