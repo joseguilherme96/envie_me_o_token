@@ -12,7 +12,7 @@ class AbstractAPITokenPaciente(ABC):
         pass
 
     @abstractmethod
-    def buscar_dados_para_execucao_sp_sadt():
+    def buscar_dados_para_execucao_sp_sadt(self,codigo_execucao):
 
         return {}
     
