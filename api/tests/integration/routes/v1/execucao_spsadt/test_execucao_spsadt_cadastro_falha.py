@@ -15,7 +15,7 @@ from config import settings
             ("123456789012222",12345,"1001",123456,"usuario","True","0","obs","","","O campo senha é obrigatório !"),
             ("123456789012323",12345,"1001",123456,"usuario","True","0","obs","senha","","O campo tipo_transacao é obrigatório !")
 ])
-def test_deve_ocorrer_falha_devido_os_campos_serem_enviados_vazios(app, execucao_spsadt_mark_parametrize,response):
+def test_deve_ocorrer_falha_devido_os_campos_serem_enviados_vazios(execucao_spsadt_mark_parametrize,response):
 
     logging.debug(execucao_spsadt_mark_parametrize)
 
@@ -34,7 +34,7 @@ def test_deve_ocorrer_falha_devido_os_campos_serem_enviados_vazios(app, execucao
             ("123456789012111",12345,1001,123456,"usuario",True,0,"obs",123456,"tipo","O campo senha deve ser um texto !"),
             ("123456789012321",12345,1001,123456,"usuario",True,0,"obs","senha",123456,"O campo tipo_transacao deve ser um texto !")
 ])
-def test_deve_ocorrer_falha_no_cadastro_na_execucao_sp_sadt_pois_alguns_dados_enviados_nao_tem_o_tipo_correto(execucao_spsadt_mark_parametrize,response):
+def test_deve_ocorrer_falha_no_cadastro_na_execucao_sp_sadt_pois_alguns_dados_enviados_nao_tem_o_tipo_correto(app_scope_function,execucao_spsadt_mark_parametrize,response):
     
     logging.debug(execucao_spsadt_mark_parametrize)
 
@@ -48,7 +48,7 @@ def test_deve_ocorrer_falha_no_cadastro_na_execucao_sp_sadt_pois_alguns_dados_en
                     ("", "", 1001, 4332,"O codigo_solicitante não está cadastrado !",2),
                     ("", "", "", 2211,"O operadora_registro_ans não está cadastrado !",3),
         ])
-def test_nao_deve_ser_cadastrado_a_execucao_sp_sadt_pois_a_codigos_com_vinculos_externos_enviados_que_nao_existem(app,codigo_beneficiario,codigo_contratado,codigo_solicitante,
+def test_nao_deve_ser_cadastrado_a_execucao_sp_sadt_pois_a_codigos_com_vinculos_externos_enviados_que_nao_existem(codigo_beneficiario,codigo_contratado,codigo_solicitante,
 operadora_registro_ans,response_expected,interacao,client_app,beneficiario_no_mark_parametrize_scope_session,contratado_no_mark_parametrize_scope_session,
 solicitante_no_mark_parametrize_scope_session,operadora_no_mark_parametrize_scope_session):
     

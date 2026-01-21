@@ -23,10 +23,10 @@ def nome_beneficiario():
     yield _nome_beneficiario
 
 @fixture(scope="function")
-def beneficiario_no_mark_parametrize(app,client_app,endpoint,beneficiario_data,numero_carteira,atendimento_rn,nome_beneficiario):
+def beneficiario_no_mark_parametrize(client_app_scope_function,endpoint,beneficiario_data,numero_carteira,atendimento_rn,nome_beneficiario):
 
     data = beneficiario_data(numero_carteira(2341534532), atendimento_rn(False), nome_beneficiario("Maria"))
-    response = client_app.post(endpoint("beneficiario"), json=data)
+    response = client_app_scope_function.post(endpoint("beneficiario"), json=data)
 
     logging.debug(response)
 

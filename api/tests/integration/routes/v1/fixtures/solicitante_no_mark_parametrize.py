@@ -3,10 +3,10 @@ import requests
 from config import settings
 import logging
 
-@fixture
-def solicitante_no_mark_parametrize(client_app):
+@fixture(scope="function")
+def solicitante_no_mark_parametrize(client_app_scope_function):
 
-    response = client_app.post(f"{settings.BASE_URL}/solicitante", json={
+    response = client_app_scope_function.post(f"{settings.BASE_URL}/solicitante", json={
         "codigo_solicitante": 23323,
         "profissional_solicitante": "Sonia",
         "conselho_profissional": "1",

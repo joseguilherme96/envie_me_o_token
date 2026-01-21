@@ -3,10 +3,10 @@ import requests
 from config import settings
 import logging
 
-@fixture
-def contratado_no_mark_parametrize(client_app):
+@fixture(scope="function")
+def contratado_no_mark_parametrize(client_app_scope_function):
 
-    response = client_app.post(f"{settings.BASE_URL}/contratado", json={
+    response = client_app_scope_function.post(f"{settings.BASE_URL}/contratado", json={
         "codigo_prestador_na_operadora": "2122323",
         "nome_contratado": "Sonia",
         "carater_atendimento": 1,
