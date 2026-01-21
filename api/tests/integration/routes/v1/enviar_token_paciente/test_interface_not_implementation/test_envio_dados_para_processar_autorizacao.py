@@ -17,7 +17,12 @@ def test_o_rpa_deve_ser_processado_com_o_envio_dos_dados_para_autorizacao(mock_r
 
     caplog.set_level(level="INFO")
 
-    api = FactoryAPITokenPaciente.create()
+    api = Mock(FactoryAPITokenPaciente)
+    api = api.create()
+    api.enviar_dados_para_execucao_sp_sadt.return_value  = [{"message": "O paciente foi autorizado com sucesso !"},201]
+    api.factory_request_sp_sadt_data_xml.xml = "<xml><Paciente>Henrique</Paciente><NumeroCarterinha>32424242242424242</NumeroCarterinha></xml>"
+    api.execucao_sp_sadt.response = "<xml>API SOAP Autorizado</xml>" 
+    api.execucao_sp_sadt.processado = True
 
     app = create_app()
 
@@ -27,8 +32,8 @@ def test_o_rpa_deve_ser_processado_com_o_envio_dos_dados_para_autorizacao(mock_r
         response = api.enviar_dados_para_execucao_sp_sadt()
 
     assert response[1] == 201
-    assert response[0].json == {"message": "O paciente foi autorizado com sucesso !"}
-    logging.info(f"Resposta de autorização para tratamento do paciente : {response[0].json}")
+    assert response[0] == {"message": "O paciente foi autorizado com sucesso !"}
+    logging.info(f"Resposta de autorização para tratamento do paciente : {response[0]}")
 
     assert isinstance(api.dados_env_e_valido,object) is True
     logging.info(f"Validacao dos dados enviados : {api.dados_env_e_valido}")
