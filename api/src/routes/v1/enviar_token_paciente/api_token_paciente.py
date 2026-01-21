@@ -3,6 +3,7 @@ from flask import jsonify
 from src.factory.factory_execucao_sp_sadt import FactoryExecucaoSPSADT
 from src.factory.factory_request_sp_sadt_data_xml import FactoryRequestSPSADTDataXML
 import logging
+from src.repository.ExecucaoSPSADT import ExecucaoSPSADTRepository
 
 class APITokenPaciente(AbstractAPITokenPaciente):
 
@@ -17,9 +18,25 @@ class APITokenPaciente(AbstractAPITokenPaciente):
 
         return True
     
-    def buscar_dados_para_execucao_sp_sadt(self):
+    def buscar_dados_para_execucao_sp_sadt(self,codigo_execucao):
 
-        self.dados_exec_sp_sadat =  {"paciente": "Henrique","numero_carteirinha":"32424242242424242"}
+        try:
+
+            logging.debug(codigo_execucao)
+            logging.info("Buscando dados para execução SP SADT....")
+
+            execucao_sp_sadt = ExecucaoSPSADTRepository()
+            result = execucao_sp_sadt.get_full_by_codigo_execucao(codigo_execucao)
+
+            logging.debug(result)
+
+            self.dados_exec_sp_sadat =  result
+
+            logging.debug(self.dados_exec_sp_sadat)
+
+        except TypeError:
+
+            raise TypeError({"message":"O codigo da execução não foi informado !","status_code":400})
 
     def enviar_dados_para_execucao_sp_sadt(self):
 
@@ -28,7 +45,7 @@ class APITokenPaciente(AbstractAPITokenPaciente):
         try:
 
             self.validar_dados_enviados()
-            self.buscar_dados_para_execucao_sp_sadt()
+            self.buscar_dados_para_execucao_sp_sadt(1)
 
             self.factory_request_sp_sadt_data_xml = FactoryRequestSPSADTDataXML.create(self.dados_exec_sp_sadat)
             self.factory_request_sp_sadt_data_xml.construir_xml()

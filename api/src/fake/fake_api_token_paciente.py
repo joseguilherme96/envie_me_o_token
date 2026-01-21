@@ -17,7 +17,7 @@ class FakeAPITokenPaciente(AbstractAPITokenPaciente):
 
         self.dados_env_e_valido =  True
     
-    def buscar_dados_para_execucao_sp_sadt(self):
+    def buscar_dados_para_execucao_sp_sadt(self,codigo_execucao):
 
         self.dados_exec_sp_sadat =  {"paciente": "Henrique","numero_carteirinha":"32424242242424242"}
 
@@ -28,7 +28,7 @@ class FakeAPITokenPaciente(AbstractAPITokenPaciente):
         try:
 
             self.validar_dados_enviados()
-            self.buscar_dados_para_execucao_sp_sadt()
+            self.buscar_dados_para_execucao_sp_sadt(1)
 
             self.factory_request_sp_sadt_data_xml = FactoryRequestSPSADTDataXML.create(self.dados_exec_sp_sadat)
             self.factory_request_sp_sadt_data_xml.construir_xml()
