@@ -56,6 +56,7 @@ def create_app(app_config=None):
 
     logging.debug(f"ENV_FOR_DYNACONF : {settings.ENV_FOR_DYNACONF}")
     logging.debug(f"DATABASE_URL : {settings.DATABASE_URL}")
+    logging.debug(f"DATABASE_URL_SCOPE_FUNCTION : {settings.DATABASE_URL_SCOPE_FUNCTION}")
     logging.debug(f"APP_CONFIG : {app_config}")
 
     db.init_app(app)
