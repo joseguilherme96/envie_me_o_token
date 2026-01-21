@@ -2,10 +2,10 @@ from pytest import fixture
 import requests
 from config import settings
 
-@fixture
-def operadora_no_mark_parametrize(client_app):
+@fixture(scope="function")
+def operadora_no_mark_parametrize(client_app_scope_function):
 
-    response = client_app.post(f"{settings.BASE_URL}/operadora", json={
+    response = client_app_scope_function.post(f"{settings.BASE_URL}/operadora", json={
         "registro_ans": 232132,
         "operadora": "saude py"
     })
