@@ -20,6 +20,7 @@ class ExecucaoSPSADTProcedimento(db.Model):
             db.session.add(procedimento)
             db.session.commit()
             return {
+                "codigo_execucao_procedimento": procedimento.codigo_execucao_procedimento,
                 "codigo_procedimento": procedimento.codigo_procedimento,
                 "codigo_execucao": procedimento.codigo_execucao,
                 "descricao_procedimento": procedimento.descricao_procedimento,

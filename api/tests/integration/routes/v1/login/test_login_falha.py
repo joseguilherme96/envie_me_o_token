@@ -6,9 +6,9 @@ from config import settings
     ("hdhfsh@gmail.com.br","dkdjjd94884ww8443"),
     ("hdhfsh@gmail.com.br","dkdjjd94884wwss8443"),
 ])
-def test_login_falha_devido_senha_estar_errada(app,user_mark_parametrize_scope_function,login,senha,request_fixture):
+def test_login_falha_devido_senha_estar_errada(client_app_scope_function,user_mark_parametrize_scope_function,login,senha):
 
-    response = request_fixture.post(f"{settings.BASE_URL}/login", json={"login": login, "senha": "sdsdsdsdsd"})
+    response = client_app_scope_function.post(f"{settings.BASE_URL}/login", json={"login": login, "senha": "sdsdsdsdsd"})
 
     assert response.status_code == 401
 
@@ -17,8 +17,8 @@ def test_login_falha_devido_senha_estar_errada(app,user_mark_parametrize_scope_f
     ("hdhfsh@gmail.com.br","dkdjjd94884ww8443"),
     ("hdhfsh@gmail.com.br","dkdjjd94884wwss8443"),
 ])
-def test_login_falha_devido_usuario_estar_errado(app,user_mark_parametrize_scope_function,login,senha,request_fixture):
+def test_login_falha_devido_usuario_estar_errado(client_app_scope_function,user_mark_parametrize_scope_function,login,senha):
 
-    response = request_fixture.post(f"{settings.BASE_URL}/login", json={"login": "sssdsf", "senha": senha})
+    response = client_app_scope_function.post(f"{settings.BASE_URL}/login", json={"login": "sssdsf", "senha": senha})
 
     assert response.status_code == 401

@@ -7,29 +7,25 @@ from dotenv import load_dotenv
 import logging
 from sqlalchemy import text
 
-def test_deve_iniciar_a_pasta_migrations_temp(capfd,tmp_path,caplog):
+def test_deve_iniciar_a_pasta_migrations_temp(capfd,tmp_path,caplog,client_app):
 
     caplog.set_level(level="INFO")
     temp_dir = tmp_path / "migrations_temp"
     temp_dir.mkdir()
-
-    app = create_app()
     
     try:
 
-        with app.app_context():
+        init(directory=f"{str(temp_dir)}")
 
-            init(directory=f"{str(temp_dir)}")
-
-            logging.info(temp_dir)
-            assert True
+        logging.info(temp_dir)
+        assert True
 
     except :
 
         assert False
 
 
-def test_as_migracoes_devem_ser_executadas(capfd,tmp_path,caplog,app):
+def test_as_migracoes_devem_ser_executadas(capfd,tmp_path,caplog,client_app):
 
     caplog.set_level(level="INFO")
     temp_dir = tmp_path / "migrations_temp"
@@ -37,15 +33,13 @@ def test_as_migracoes_devem_ser_executadas(capfd,tmp_path,caplog,app):
 
     try:
 
-        with app.app_context():
+        db.drop_all()
+        
+        init(directory=f"{str(temp_dir)}")
+        migrate(directory=f"{str(temp_dir)}")
 
-            db.drop_all()
-            
-            init(directory=f"{str(temp_dir)}")
-            migrate(directory=f"{str(temp_dir)}")
-
-            logging.info(temp_dir)
-            assert True
+        logging.info(temp_dir)
+        assert True
     except Exception as e:
 
         assert False,f"str{e}"
@@ -60,12 +54,9 @@ def test_as_migracoes_devem_ser_executadas(capfd,tmp_path,caplog,app):
     assert len(migration_file_versions) == 1
 
     try:
-
-
-        with app.app_context():
-
-            upgrade(directory=f"{str(temp_dir)}")
-            assert True
+        
+        upgrade(directory=f"{str(temp_dir)}")
+        assert True
     
     except :
 

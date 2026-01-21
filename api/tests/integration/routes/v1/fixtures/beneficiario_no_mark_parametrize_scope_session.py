@@ -24,17 +24,17 @@ def nome_beneficiario():
     yield _nome_beneficiario
     
 @fixture(scope="session")
-def beneficiario_no_mark_parametrize_scope_session(app,request_fixture,beneficiario_data,nome_beneficiario,atendimento_rn,
+def beneficiario_no_mark_parametrize_scope_session(app,client_app,beneficiario_data,nome_beneficiario,atendimento_rn,
                                                    numero_carteira):
 
     endpoint = f"{settings.BASE_URL}/beneficiario"
 
     data = beneficiario_data(numero_carteira(2345124532), atendimento_rn(False), nome_beneficiario("Maria"))
-    response = request_fixture.post(endpoint, json=data)
+    response = client_app.post(endpoint, json=data)
 
     logging.debug(response)
 
-    response_json = response.json()
+    response_json = response.json
     response_json["status_code"] = response.status_code
 
     yield response_json

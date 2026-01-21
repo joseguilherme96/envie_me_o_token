@@ -6,10 +6,10 @@ import pytest
 from src import get_db_path
 from sqlalchemy  import create_engine, StaticPool
 from sqlalchemy.exc import OperationalError as SQLAlchemyOperationalError
-import requests
 import logging
 from sqlalchemy import text
-
+from flask_jwt_extended import create_access_token
+import logging
 
 @pytest.hookimpl(tryfirst=True)
 def pytest_sessionstart(session):
@@ -32,26 +32,7 @@ def pytest_sessionstart(session):
         try:
 
             logging.debug(settings.BASE_URL)
-            response = requests.get(settings.BASE_URL)
 
-            if response.status_code != 200:
-
-                raise 
-
-            logging.info("A conexão com o servidor flask foi feita com sucesso !")
-
-            logging.info("Verificando se servidor está rodando no mesmo ambiente que o teste....")
-            logging.debug("Ambiente no teste :",settings.ENV_FOR_DYNACONF)
-
-            response = requests.get(f"{settings.BASE_URL}/status")
-            response_json = response.json()
-
-            logging.debug(f"Ambiente no servidor : {response_json['environment']}")
-
-            if  response_json["environment"] != settings.ENV_FOR_DYNACONF:
-
-                raise Exception("O ambiente que está sendo executado o teste é diferente do ambiente que está sendo executado no servidor !")
-            
         except Exception as e:
 
             raise Exception(e)
@@ -66,7 +47,6 @@ def pytest_sessionstart(session):
 
         logging.debug(e)
         pytest.exit("Os testes foram finalidados devido o servidor Flask não estar configurado corretamente !")
-
 
 @fixture(scope="session",autouse=True)
 def set_test_settigs(environment):
@@ -97,7 +77,6 @@ def set_test_settigs(environment):
 
     logging.info(f"🔧 DYNACONF_USE_CLASS_FAKE = {value}")
     
-
 def pytest_addoption(parser):
 
     parser.addoption(
@@ -124,17 +103,27 @@ def environment(request):
 
     return request.config.getoption("--environment")
 
+@pytest.fixture(scope="session")
+def client_app(app):
+
+    test_client = app.test_client()
+    client = gerar_token(test_client)
+
+    yield client
+
+@pytest.fixture(scope="function")
+def client_app_scope_function(app_scope_function):
+
+    test_client = app_scope_function.test_client()
+    client = gerar_token(test_client)
+    yield client
+
 @fixture(scope="session")
 def app(db_url):
 
-    test_config = {
-        "SQLALCHEMY_DATABASE_URI": db_url,
-        "SQLALCHEMY_TRACK_MODIFICATIONS": False,
-    }
-    
+    config = configurar_app(db_url)
     logging.info("Criando app...")
-    logging.debug(f"configuracoes do app : {test_config}")
-    app = create_app(test_config)
+    app = create_app(config)
 
     with app.app_context():
 
@@ -142,23 +131,14 @@ def app(db_url):
         
         yield app
 
-        db.session.execute(text("DROP TABLE IF EXISTS alembic_version"))
-        db.session.commit()
-        db.session.remove()
-        db.drop_all()
-        db.engine.dispose()
+        clear_db(db)
 
-@fixture
+@fixture(scope="function")
 def app_scope_function(db_url):
 
-    test_config = {
-        "SQLALCHEMY_DATABASE_URI": db_url,
-        "SQLALCHEMY_TRACK_MODIFICATIONS": False,
-    }
-    
+    config = configurar_app(db_url)
     logging.info("Criando app...")
-    logging.debug(f"configuracoes do app : {test_config}")
-    app = create_app(test_config)
+    app = create_app(config)
 
     with app.app_context():
 
@@ -166,8 +146,31 @@ def app_scope_function(db_url):
         
         yield app
 
-        db.session.execute(text("DROP TABLE IF EXISTS alembic_version"))
-        db.session.commit()
-        db.session.remove()
-        db.drop_all()
-        db.engine.dispose()
+        clear_db(db)
+
+def configurar_app(db_url):
+
+    test_config = {
+        "SQLALCHEMY_DATABASE_URI": db_url,
+        "SQLALCHEMY_TRACK_MODIFICATIONS": False,
+        "TESTING": True
+    }
+    
+    logging.debug(f"configuracoes do app : {test_config}")
+
+    return test_config
+
+def gerar_token(client):
+
+    access_token = create_access_token(identity="usuario_teste")
+    client.environ_base["HTTP_AUTHORIZATION"] = f"Bearer {access_token}"
+
+    return client
+
+def clear_db(db):
+
+    db.session.execute(text("DROP TABLE IF EXISTS alembic_version"))
+    db.session.commit()
+    db.session.remove()
+    db.drop_all()
+    db.engine.dispose()
