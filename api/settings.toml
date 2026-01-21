@@ -1,7 +1,8 @@
 [development]  
 DEBUG = true  
 BD_NAME = "development"
-DATABASE_URL = "mysql+pymysql://root@localhost:3306/development" 
+DATABASE_URL = "mysql+pymysql://root@localhost:3306/development"
+DATABASE_URL_SCOPE_FUNCTION= "mysql+pymysql://root@localhost:3306/development1"
 connection_string = "mysql+pymysql://root@localhost:3306/development"
 DATABASE_MEMORY = false
 FLASK_APP="api.src"
@@ -32,6 +33,7 @@ path_image_schema_bd = "api/src/schema"
 BASE_URL = "http://127.0.0.1:5000"
 API_SOAP_AUTORIZACAO_EXECUCAO_SP_SADT = "http://fakeapi.com.br" 
 DATABASE_URL = "sqlite:///C:\\xampp\\htdocs\\envie_me_o_token\\api\\src\\instance\\testing.db"
+DATABASE_URL_SCOPE_FUNCTION = "sqlite:///C:\\xampp\\htdocs\\envie_me_o_token\\api\\src\\instance\\testing1.db"
 JWT_SECRET_KEY="8*2@jwje#djdjd*11222*11"
 
 [staging]  
@@ -50,6 +52,7 @@ path_image_schema_bd = "api/src/schema"
 BASE_URL = "http://127.0.0.1:5000"
 API_SOAP_AUTORIZACAO_EXECUCAO_SP_SADT = "http://fakeapi.com.br" 
 DATABASE_URL = "mysql+pymysql://root@localhost:3306/staging"
+DATABASE_URL_SCOPE_FUNCTION= "mysql+pymysql://root@localhost:3306/staging1"
 JWT_SECRET_KEY="8*2@jwje#djdjd*11222*11"
 
 [production]  
@@ -68,5 +71,6 @@ path_image_schema_bd = "api/src/schema"
 BASE_URL = "http://127.0.0.1:5000"
 API_SOAP_AUTORIZACAO_EXECUCAO_SP_SADT = "http://fakeapi.com.br" 
 DATABASE_URL = "mysql+pymysql://root@localhost:3306/production"
+DATABASE_URL_SCOPE_FUNCTION= "mysql+pymysql://root@localhost:3306/production1"
 USE_CLASS_FAKE = false
 JWT_SECRET_KEY="8*2@jwje#djdjd*11222*11"

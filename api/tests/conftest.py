@@ -87,6 +87,13 @@ def pytest_addoption(parser):
     )
 
     parser.addoption(
+        "--dburl-scope-function",
+        action="store",
+        default=settings.DATABASE_URL_SCOPE_FUNCTION,
+        help=f"Database URL para testes, default : {settings.DATABASE_URL_SCOPE_FUNCTION}"
+    )
+
+    parser.addoption(
         "--environment",
         action="store",
         default="testing",
@@ -97,6 +104,11 @@ def pytest_addoption(parser):
 def db_url(request):
 
     return request.config.getoption("--dburl")
+
+@fixture(scope="function")
+def db_url_scope_function(request):
+
+    return request.config.getoption("--dburl-scope-function")
 
 @fixture(scope="session")
 def environment(request):
@@ -134,9 +146,9 @@ def app(db_url):
         clear_db(db)
 
 @fixture(scope="function")
-def app_scope_function(db_url):
+def app_scope_function(db_url_scope_function):
 
-    config = configurar_app(db_url)
+    config = configurar_app(db_url_scope_function)
     logging.info("Criando app...")
     app = create_app(config)
 
