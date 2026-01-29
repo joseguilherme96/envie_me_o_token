@@ -1,5 +1,5 @@
 from pytest import fixture
-from __init__ import create_app,db
+from src import create_app,db
 import os
 from config import settings
 import pytest
@@ -162,6 +162,8 @@ def app_scope_function(db_url_scope_function):
 
 def configurar_app(db_url):
 
+    logging.debug(db_url)
+    
     test_config = {
         "SQLALCHEMY_DATABASE_URI": db_url,
         "SQLALCHEMY_TRACK_MODIFICATIONS": False,
