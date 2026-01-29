@@ -1,4 +1,4 @@
-from __init__ import create_app
+from src import create_app
 from pathlib import Path
 from config import settings
 from dotenv import load_dotenv
