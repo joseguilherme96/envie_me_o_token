@@ -17,6 +17,7 @@ class ExecucaoSPSADTRepository:
 
         return {
 
+            "codigo_execucao":execucao_sp_sadt.codigo_execucao,
             "codigo_beneficiario":execucao_sp_sadt.codigo_beneficiario,
             "codigo_contratado": execucao_sp_sadt.codigo_contratado,
             "codigo_solicitante":execucao_sp_sadt.codigo_solicitante,
