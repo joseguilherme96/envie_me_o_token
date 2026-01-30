@@ -10,6 +10,7 @@ def test_deve_retornar_dados_para_execucao_sp_sadt(execucao_spsadt_no_mark_param
 
     assert isinstance(api_token_paciente.dados_exec_sp_sadat,dict)
     assert api_token_paciente.dados_exec_sp_sadat == {
+        "codigo_execucao":execucao_spsadt_no_mark_parametrize['data']["codigo_execucao"],
         "codigo_beneficiario":beneficiario_no_mark_parametrize_scope_session['data']["numero_carteira"],
         "codigo_contratado": contratado_no_mark_parametrize_scope_session['data']["codigo_prestador_na_operadora"],
         "codigo_solicitante":solicitante_no_mark_parametrize_scope_session['data']["codigo_solicitante"],

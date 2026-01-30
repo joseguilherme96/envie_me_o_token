@@ -9,7 +9,7 @@ def execucao_spsadt_no_mark_parametrize(endpoint,get_data_execucao_spsadt,benefi
     
     data = get_data_execucao_spsadt(beneficiario_no_mark_parametrize_scope_session['data']["numero_carteira"],contratado_no_mark_parametrize_scope_session['data']["codigo_prestador_na_operadora"],
                                     solicitante_no_mark_parametrize_scope_session['data']["codigo_solicitante"],operadora_no_mark_parametrize_scope_session['data']["registro_ans"],
-                                    "paciente@gmail.com",True,True,"observacao","dmdm3","SOLICITACAO_AUTORIZACAO")
+                                    "paciente@gmail.com",True,True,"observacao","dmdm3","SOLICITACAO_PROCEDIMENTOS")
 
     response = client_app.post(endpoint("execucao_spsadt"), json=data)
 
