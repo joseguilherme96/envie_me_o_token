@@ -18,7 +18,7 @@ def operadora_no_mark_parametrize(client_app_scope_function):
 def operadora_no_mark_parametrize_scope_session(client_app):
 
     response = client_app.post(f"{settings.BASE_URL}/operadora", json={
-        "registro_ans": 23232,
+        "registro_ans": 232321,
         "operadora": "saude py"
     })
     response_json = response.json
