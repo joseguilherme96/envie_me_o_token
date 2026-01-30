@@ -19,9 +19,8 @@
                 </sch:origem>
                 <sch:destino>
                     <sch:registroANS>{registro_ANS}</sch:registroANS>
-                    <sch:numeroGuiaOperadora>{numero_guia_operadora}</sch:numeroGuiaOperadora>
                 </sch:destino>
-                <sch:padrao>{padrao}</sch:padrao>
+                <sch:Padrao>{padrao}</sch:Padrao>
                 <sch:loginSenhaPrestador>
                     <sch:loginPrestador>{login_prestador}</sch:loginPrestador>
                     <sch:senhaPrestador>{senha_prestador}</sch:senhaPrestador>
@@ -66,8 +65,9 @@
                         <sch:quantidadeSolicitada>{quantidade_solicitada}</sch:quantidadeSolicitada>
                     </sch:procedimentosSolicitados>
                     <sch:dadosExecutante>
-                        <sch:codigoOperadora>{codigo_operadora}</sch:codigoOperadora>
+                        <sch:codigonaOperadora>{codigo_operadora}</sch:codigonaOperadora>
                         <sch:nomeContratado>{nome_contratado}</sch:nomeContratado>
+                        <sch:CNES>{cnes}</sch:CNES>
                     </sch:dadosExecutante>
                     <sch:observacao>{observacao}</sch:observacao>
                 </sch:solicitacaoSP-SADT>
