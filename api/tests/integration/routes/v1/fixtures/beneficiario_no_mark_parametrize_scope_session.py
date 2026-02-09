@@ -46,7 +46,9 @@ def beneficiario_no_mark_parametrize_scope_session(
     endpoint = f"{settings.BASE_URL}/beneficiario"
 
     data = beneficiario_data_session(
-        numero_carteira_session(2345124532), atendimento_rn_session(False), nome_beneficiario_session("Maria")
+        numero_carteira_session(2345124532),
+        atendimento_rn_session(False),
+        nome_beneficiario_session("Maria"),
     )
     response = client_app.post(endpoint, json=data)
 

@@ -45,9 +45,6 @@ from fixtures.execucao_spsadt_procedimento_no_mark_parametrize import (
 )
 
 
-
-
-
 @fixture
 def setup_tables(
     app, beneficiario, contratado, solicitante, operadora, tipo_user, user

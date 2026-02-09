@@ -60,5 +60,4 @@ def test_o_usuario_nao_deve_ser_cadastrado_novamente_devido_ja_existir_na_base_d
         },
     )
 
-
     assert response.status_code == 409

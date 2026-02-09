@@ -47,9 +47,9 @@ def test_deve_contruir_xml_para_execucao_sp_sadt(
     hora_registro_transacao = find(xml, ".//sch:horaRegistroTransacao")
     assert hora_registro_transacao is not None
 
-    codigo_prestador_na_operadora = find_all(
-        xml, ".//sch:codigoPrestadorNaOperadora"
-    )[0]
+    codigo_prestador_na_operadora = find_all(xml, ".//sch:codigoPrestadorNaOperadora")[
+        0
+    ]
     assert codigo_prestador_na_operadora is not None
     assert codigo_prestador_na_operadora.text == str(
         execucao_spsadt_no_mark_parametrize["data"]["codigo_contratado"]
@@ -116,9 +116,7 @@ def test_deve_contruir_xml_para_execucao_sp_sadt(
         == beneficiario_no_mark_parametrize_scope_session["data"]["numero_carteira"]
     )
 
-    codigo_prestado_na_operadora = find_all(
-        xml, ".//sch:codigoPrestadorNaOperadora"
-    )[1]
+    codigo_prestado_na_operadora = find_all(xml, ".//sch:codigoPrestadorNaOperadora")[1]
     assert codigo_prestado_na_operadora is not None
     assert codigo_prestado_na_operadora.text == str(
         solicitante_no_mark_parametrize_scope_session["data"]["codigo_solicitante"]

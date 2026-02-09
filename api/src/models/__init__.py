@@ -4,7 +4,9 @@ from .Beneficiario import Beneficiario as Beneficiario
 from .Solicitante import Solicitante as Solicitante
 from .Users import Users as Users
 from .UserTipo import TipoUser as TipoUser
-from .ExecucaoSPSADTProcedimento import ExecucaoSPSADTProcedimento as ExecucaoSPSADTProcedimento
+from .ExecucaoSPSADTProcedimento import (
+    ExecucaoSPSADTProcedimento as ExecucaoSPSADTProcedimento,
+)
 from .Operadora import Operadora as Operadora
 from .ExecucaoSPSADT import ExecucaoSPSADT as ExecucaoSPSADT
 from .TransacaoStatus import TransacaoStatus as TransacaoStatus
