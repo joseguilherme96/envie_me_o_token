@@ -1,4 +1,3 @@
-import requests
 import logging
 from config import settings
 from pytest import mark

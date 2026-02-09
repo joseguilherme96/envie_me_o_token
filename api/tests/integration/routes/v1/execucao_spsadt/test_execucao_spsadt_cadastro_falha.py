@@ -1,6 +1,5 @@
 import logging
 from pytest import mark
-import requests
 from config import settings
 
 

@@ -1,8 +1,11 @@
 from __future__ import annotations
-from typing import List
+from typing import List, TYPE_CHECKING
 from .db import db
-from sqlalchemy import Integer, String, Enum, ForeignKey, VARCHAR
+from sqlalchemy import String, Enum
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+if TYPE_CHECKING:
+    from .Users import Users
 
 
 class TipoUser(db.Model):
@@ -10,7 +13,7 @@ class TipoUser(db.Model):
     tipo: Mapped[str] = mapped_column(
         String(50), Enum("Prestador", "Beneficiario", name="tipo_user_enum")
     )
-    users: Mapped[List[Users]] = relationship(back_populates="users")
+    users: Mapped[List["Users"]] = relationship(back_populates="users")
 
     def inserir(TipoUser):
 
@@ -22,7 +25,7 @@ class TipoUser(db.Model):
 
             return {"cod_tipo_user": TipoUser.cod_tipo_user, "tipo": TipoUser.tipo}
 
-        except Exception as e:
+        except Exception:
             db.session.rollback()
 
             raise

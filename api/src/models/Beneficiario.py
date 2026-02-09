@@ -1,9 +1,12 @@
 from __future__ import annotations
-from typing import List
+from typing import List, TYPE_CHECKING
 from .db import db
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String, Boolean
 import logging
+
+if TYPE_CHECKING:
+    from .ExecucaoSPSADT import ExecucaoSPSADT
 
 
 class Beneficiario(db.Model):
@@ -26,7 +29,7 @@ class Beneficiario(db.Model):
                 "nome_beneficiario": beneficiario.nome_beneficiario,
                 "atendimento_rn": beneficiario.atendimento_rn,
             }
-        except Exception as e:
+        except Exception:
             db.session.rollback()
             raise
 
@@ -65,7 +68,7 @@ class Beneficiario(db.Model):
 
             return execute.fetchall()
 
-        except Exception as e:
+        except Exception:
             raise
 
         finally:

@@ -1,7 +1,6 @@
 from pytest import mark
 import logging
 from config import settings
-import requests
 
 
 @mark.parametrize("registro_ans,nome_operadora", [(1222122, "Operadora Saúde")])

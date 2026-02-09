@@ -1,10 +1,9 @@
 from pytest import fixture
-from config import settings
 import logging
 
 
 @fixture
-def get_data_execucao_spsadt():
+def get_data_execucao_spsadt_function():
     def _get_data_execucao_spsadt(*data):
 
         data = {

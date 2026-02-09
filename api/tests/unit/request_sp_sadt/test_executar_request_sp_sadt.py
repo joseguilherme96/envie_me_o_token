@@ -1,6 +1,5 @@
 from src.factory.factory_request_spsadt import FactoryRequestSPSADT
 from unittest.mock import patch, MagicMock
-from dotenv import load_dotenv
 
 
 @patch("requests.post")

@@ -40,7 +40,7 @@ def cadastrar_contratado():
                 }
             ), 409
 
-        if isinstance(dados.get("nome_contratado"), str) == False:
+        if not isinstance(dados.get("nome_contratado"), str):
             return jsonify(
                 {"message": "O campo nome_contratado deve ser um texto !"}
             ), 400

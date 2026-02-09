@@ -1,6 +1,5 @@
 import requests
 from unittest.mock import patch
-from pytest import mark
 from dotenv import load_dotenv
 from config import settings
 

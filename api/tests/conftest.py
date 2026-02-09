@@ -9,7 +9,6 @@ from sqlalchemy.exc import OperationalError as SQLAlchemyOperationalError
 import logging
 from sqlalchemy import text
 from flask_jwt_extended import create_access_token
-import logging
 
 
 @pytest.hookimpl(tryfirst=True)
@@ -57,7 +56,7 @@ def set_test_settigs(environment):
     value = os.environ.get("DYNACONF_USE_CLASS_FAKE", None)
 
     if value is None:
-        pytest.exit(f"""
+        pytest.exit("""
                     
         🚨 Variável obrigatória `DYNACONF_USE_CLASS_FAKE` não definida!
 

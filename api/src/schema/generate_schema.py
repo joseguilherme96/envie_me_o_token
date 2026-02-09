@@ -1,8 +1,6 @@
 from sqlalchemy import MetaData
 from sqlalchemy_schemadisplay import create_schema_graph
 from src.__init__ import create_app
-import os
-from dotenv import load_dotenv
 from src.models.db import db
 import logging
 from config import settings

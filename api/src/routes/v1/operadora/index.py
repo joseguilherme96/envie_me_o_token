@@ -29,7 +29,7 @@ def cadastrar_operadora():
                 }
             ), 409
 
-        if isinstance(dados.get("operadora"), str) == False:
+        if not isinstance(dados.get("operadora"), str):
             return jsonify({"message": "O campo operadora deve ser um texto !"}), 400
 
         isNumericOrError(

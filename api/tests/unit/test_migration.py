@@ -1,10 +1,9 @@
-from src import create_app, db
-from flask_migrate import Migrate, upgrade, migrate, init
+from src import db
+from flask_migrate import upgrade, migrate, init
 from pathlib import Path
 import os
 from dotenv import load_dotenv
 import logging
-from sqlalchemy import text
 
 
 def test_deve_iniciar_a_pasta_migrations_temp(capfd, tmp_path, caplog, client_app):
@@ -19,7 +18,8 @@ def test_deve_iniciar_a_pasta_migrations_temp(capfd, tmp_path, caplog, client_ap
         logging.info(temp_dir)
         assert True
 
-    except:
+    except Exception as e:
+        logging.error(f"Migration init failed: {e}")
         assert False
 
 
@@ -55,5 +55,6 @@ def test_as_migracoes_devem_ser_executadas(capfd, tmp_path, caplog, client_app):
         upgrade(directory=f"{str(temp_dir)}")
         assert True
 
-    except:
+    except Exception as e:
+        logging.error(f"Migration upgrade failed: {e}")
         assert False

@@ -1,7 +1,11 @@
 from __future__ import annotations
+from typing import TYPE_CHECKING
 from .db import db
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import String, Integer, ForeignKey
+from sqlalchemy import String, ForeignKey
+
+if TYPE_CHECKING:
+    from .ExecucaoSPSADT import ExecucaoSPSADT
 
 
 class ExecucaoSPSADTProcedimento(db.Model):
@@ -35,6 +39,6 @@ class ExecucaoSPSADTProcedimento(db.Model):
                 "descricao_procedimento": procedimento.descricao_procedimento,
                 "quantidade_solicitada": procedimento.quantidade_solicitada,
             }
-        except Exception as e:
+        except Exception:
             db.session.rollback()
             raise

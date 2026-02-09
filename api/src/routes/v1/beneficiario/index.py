@@ -1,6 +1,5 @@
 from flask import Blueprint, jsonify, request
 from src.models.Beneficiario import Beneficiario
-from src.models.db import db
 import logging
 from flask_jwt_extended import jwt_required
 
@@ -22,7 +21,7 @@ def cadastrar_beneficiario():
         try:
             int(dados["numero_carteira"])
 
-        except Exception as e:
+        except Exception:
             return jsonify(
                 {"message": "O campo numero_carteira deve ser um inteiro !"}
             ), 400

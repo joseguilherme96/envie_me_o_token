@@ -10,4 +10,4 @@ class FakeRequestSPSADTDataXML(AbstractRequestSPSADTDataXML):
 
     def construir_xml(self):
 
-        self.xml = f"<xml><Paciente>Henrique</Paciente><NumeroCarterinha>32424242242424242</NumeroCarterinha></xml>"
+        self.xml = "<xml><Paciente>Henrique</Paciente><NumeroCarterinha>32424242242424242</NumeroCarterinha></xml>"

@@ -43,9 +43,9 @@ def create_app(app_config=None):
     app.register_blueprint(login)
 
     if app_config:
-        logging.info(f"Atualizando configuracoes do app....")
+        logging.info("Atualizando configuracoes do app....")
         app.config.update(app_config)
-        logging.info(f"Atualizando DATABASE_URL do Dynaconf")
+        logging.info("Atualizando DATABASE_URL do Dynaconf")
         settings.configure(DATABASE_URL=app_config["SQLALCHEMY_DATABASE_URI"])
 
     else:
@@ -53,7 +53,7 @@ def create_app(app_config=None):
 
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.config["JWT_SECRET_KEY"] = settings.JWT_SECRET_KEY
-    jwt = JWTManager(app)
+    JWTManager(app)
 
     logging.debug(f"ENV_FOR_DYNACONF : {settings.ENV_FOR_DYNACONF}")
     logging.debug(f"DATABASE_URL : {settings.DATABASE_URL}")

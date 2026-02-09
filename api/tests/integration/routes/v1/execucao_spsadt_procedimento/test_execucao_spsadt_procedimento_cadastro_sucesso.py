@@ -1,7 +1,5 @@
-import requests
 import logging
 from config import settings
-from pytest import mark
 
 
 def test_cadastro_execucao_spsadt_procedimento(

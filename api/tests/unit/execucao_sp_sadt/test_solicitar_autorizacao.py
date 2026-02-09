@@ -123,7 +123,7 @@ def test_deve_levantar_uma_excecao_ao_nao_passar_todos_os_dados_para_execucao_sp
         )
         mock_response.return_value = template_data_xml_response
 
-        dados_sp_sadat = template_data_xml_request.format(
+        template_data_xml_request.format(
             tipo_transacao="",
             sequencial_transacao="",
             data_registro_transacao="",

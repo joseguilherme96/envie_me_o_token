@@ -1,8 +1,12 @@
 from __future__ import annotations
-from typing import List
+from typing import List, TYPE_CHECKING
 from .db import db
-from sqlalchemy import Integer, String, ForeignKey, Date, Time
+from sqlalchemy import ForeignKey, Date, Time
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+if TYPE_CHECKING:
+    from .ExecucaoSPSADT import ExecucaoSPSADT
+    from .TransacaoStatus import TransacaoStatus
 
 
 class Transacao(db.Model):

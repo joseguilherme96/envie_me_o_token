@@ -1,24 +1,29 @@
-from pytest import fixture, raises, mark
-import requests
+from pytest import fixture
 from config import settings
 import logging
-from flask_jwt_extended import create_access_token
 
-from fixtures.operadora_no_mark_parametrize import operadora_no_mark_parametrize
-from fixtures.execucao_spsadt_no_mark_parametrize import (
-    execucao_spsadt_no_mark_parametrize,
+# Fixtures são auto-descobertas pelo pytest via conftest.py
+# ruff: noqa: F401
+from fixtures.beneficiario_no_mark_parametrize_scope_session import (
+    beneficiario_data as beneficiario_data_session,
+    nome_beneficiario as nome_beneficiario_session,
+    atendimento_rn as atendimento_rn_session,
+    numero_carteira as numero_carteira_session,
 )
-from fixtures.execucao_spsadt_no_mark_parametrize import (
-    execucao_spsadt_no_mark_parametrize_option_2,
+from fixtures.beneficiario_no_mark_parametrize_scope_function import (
+    beneficiario_data,
+    nome_beneficiario,
+    atendimento_rn,
+    numero_carteira,
 )
-from fixtures.execucao_spsadt_no_mark_parametrize import (
-    execucao_spsadt_no_mark_parametrize_option_3,
+from fixtures.user import (
+    user_mark_parametrize_scope_function,
+    user_scope_function,
 )
-from fixtures.contratado_no_mark_parametrize import contratado_no_mark_parametrize
-from fixtures.solicitante_no_mark_parametrize import solicitante_no_mark_parametrize
-from fixtures.get_data_execucao_spsadt import get_data_execucao_spsadt
-from fixtures.endpoint import endpoint
 from fixtures.execucao_spsadt_mark_parametrize import execucao_spsadt_mark_parametrize
+from fixtures.beneficiario_no_mark_parametrize_scope_session import (
+    beneficiario_no_mark_parametrize_scope_session,
+)
 from fixtures.contratado_no_mark_parametrize import (
     contratado_no_mark_parametrize_scope_session,
 )
@@ -28,28 +33,19 @@ from fixtures.solicitante_no_mark_parametrize import (
 from fixtures.operadora_no_mark_parametrize import (
     operadora_no_mark_parametrize_scope_session,
 )
+from fixtures.endpoint import endpoint
+from fixtures.get_data_execucao_spsadt import get_data_execucao_spsadt
+from fixtures.execucao_spsadt_no_mark_parametrize import (
+    execucao_spsadt_no_mark_parametrize,
+    execucao_spsadt_no_mark_parametrize_option_2,
+    execucao_spsadt_no_mark_parametrize_option_3,
+)
 from fixtures.execucao_spsadt_procedimento_no_mark_parametrize import (
     execucao_spsadt_procedimento_no_mark_parametrize,
 )
 
-from fixtures.beneficiario_no_mark_parametrize_scope_function import (
-    beneficiario_no_mark_parametrize,
-)
-from fixtures.beneficiario_no_mark_parametrize_scope_function import beneficiario_data
-from fixtures.beneficiario_no_mark_parametrize_scope_function import nome_beneficiario
-from fixtures.beneficiario_no_mark_parametrize_scope_function import atendimento_rn
-from fixtures.beneficiario_no_mark_parametrize_scope_function import numero_carteira
-from fixtures.beneficiario_no_mark_parametrize_scope_session import (
-    beneficiario_no_mark_parametrize_scope_session,
-)
-from fixtures.beneficiario_no_mark_parametrize_scope_session import beneficiario_data
-from fixtures.beneficiario_no_mark_parametrize_scope_session import nome_beneficiario
-from fixtures.beneficiario_no_mark_parametrize_scope_session import atendimento_rn
-from fixtures.beneficiario_no_mark_parametrize_scope_session import numero_carteira
 
-from fixtures.user import user
-from fixtures.user import user_scope_function
-from fixtures.user import user_mark_parametrize_scope_function
+
 
 
 @fixture
@@ -72,14 +68,14 @@ def setup_tables(
 def beneficiario(
     app,
     client_app,
-    numero_carteira,
-    atendimento_rn,
-    nome_beneficiario,
+    numero_carteira,  # noqa: F811
+    atendimento_rn,  # noqa: F811
+    nome_beneficiario,  # noqa: F811
     response_status_code,
     response_message,
 ):
 
-    endpoint = f"{settings.BASE_URL}/beneficiario"
+    endpoint = f"{settings.BASE_URL}/beneficiario"  # noqa: F811
     data = {
         "numero_carteira": numero_carteira,
         "atendimento_rn": atendimento_rn,

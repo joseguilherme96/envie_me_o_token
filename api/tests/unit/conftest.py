@@ -1,4 +1,5 @@
 from pytest import fixture
+import pytest
 
 
 @fixture
@@ -86,9 +87,6 @@ def template_data_xml_request():
         </soapenv:Envelope>
 
     """
-
-
-import pytest
 
 
 @pytest.fixture

@@ -1,5 +1,4 @@
 from pytest import mark
-import requests
 from config import settings
 
 
@@ -61,6 +60,5 @@ def test_o_usuario_nao_deve_ser_cadastrado_novamente_devido_ja_existir_na_base_d
         },
     )
 
-    response_json = response.json
 
     assert response.status_code == 409

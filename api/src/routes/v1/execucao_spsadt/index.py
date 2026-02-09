@@ -47,21 +47,21 @@ def cadastrar_execucao_spsadt():
             dados, "tipo_transacao", "O campo tipo_transacao é obrigatório !"
         )
 
-        if isinstance(dados.get("codigo_beneficiario"), str) == False:
+        if not isinstance(dados.get("codigo_beneficiario"), str):
             return jsonify(
                 {"message": "O campo codigo_beneficiario deve ser um texto !"}
             ), 400
 
-        if isinstance(dados.get("login"), str) == False:
+        if not isinstance(dados.get("login"), str):
             return jsonify({"message": "O campo login deve ser um texto !"}), 400
 
-        if isinstance(dados.get("observacao"), str) == False:
+        if not isinstance(dados.get("observacao"), str):
             return jsonify({"message": "O campo observacao deve ser um texto !"}), 400
 
-        if isinstance(dados.get("senha"), str) == False:
+        if not isinstance(dados.get("senha"), str):
             return jsonify({"message": "O campo senha deve ser um texto !"}), 400
 
-        if isinstance(dados.get("tipo_transacao"), str) == False:
+        if not isinstance(dados.get("tipo_transacao"), str):
             return jsonify(
                 {"message": "O campo tipo_transacao deve ser um texto !"}
             ), 400

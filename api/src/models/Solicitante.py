@@ -1,9 +1,12 @@
 from __future__ import annotations
-from typing import List
+from typing import List, TYPE_CHECKING
 from .db import db
-from sqlalchemy import Integer, String
+from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 import logging
+
+if TYPE_CHECKING:
+    from .ExecucaoSPSADT import ExecucaoSPSADT
 
 
 class Solicitante(db.Model):
@@ -54,7 +57,7 @@ class Solicitante(db.Model):
             execute = db.session.execute(query)
             return execute.fetchall()
 
-        except Exception as e:
+        except Exception:
             raise
 
         finally:
@@ -73,6 +76,6 @@ class Solicitante(db.Model):
                 "uf": solicitante.uf,
                 "cbos": solicitante.cbos,
             }
-        except Exception as e:
+        except Exception:
             db.session.rollback()
             raise

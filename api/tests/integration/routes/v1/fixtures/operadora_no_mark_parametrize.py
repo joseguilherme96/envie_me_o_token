@@ -1,5 +1,4 @@
 from pytest import fixture
-import requests
 from config import settings
 
 

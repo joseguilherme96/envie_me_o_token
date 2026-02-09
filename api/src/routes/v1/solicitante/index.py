@@ -49,12 +49,12 @@ def cadastrar_solicitante():
                 }
             ), 409
 
-        if isinstance(dados.get("profissional_solicitante"), str) == False:
+        if not isinstance(dados.get("profissional_solicitante"), str):
             return jsonify(
                 {"message": "O campo profissional_solicitante deve ser um texto !"}
             ), 400
 
-        if isinstance(dados.get("numero_conselho_profissional"), str) == False:
+        if not isinstance(dados.get("numero_conselho_profissional"), str):
             return jsonify(
                 {"message": "O campo numero_conselho_profissional deve ser um texto !"}
             ), 400

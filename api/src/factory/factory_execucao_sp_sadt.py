@@ -1,6 +1,5 @@
 from src.fake.fake_execucao_sp_sadat import FakeExecucaoSPSADAT
 from src.rpa.execucao_sp_sadat import ExecucaoSPSADAT
-import os
 from dotenv import load_dotenv
 from config import settings
 import logging

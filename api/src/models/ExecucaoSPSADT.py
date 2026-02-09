@@ -1,9 +1,18 @@
 from __future__ import annotations
-from typing import List
+from typing import List, TYPE_CHECKING
 from .db import db
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import String, Integer, ForeignKey, Text
+from sqlalchemy import String, ForeignKey, Text
 import logging
+
+if TYPE_CHECKING:
+    from .Beneficiario import Beneficiario
+    from .Contratado import Contratado
+    from .Solicitante import Solicitante
+    from .Operadora import Operadora
+    from .Users import Users
+    from .Transacao import Transacao
+    from .ExecucaoSPSADTProcedimento import ExecucaoSPSADTProcedimento
 
 
 class ExecucaoSPSADT(db.Model):
@@ -82,7 +91,7 @@ class ExecucaoSPSADT(db.Model):
             execute = db.session.execute(query)
             return execute.fetchall()
 
-        except Exception as e:
+        except Exception:
             raise
 
         finally:
@@ -106,7 +115,7 @@ class ExecucaoSPSADT(db.Model):
                 "senha": execucao.senha,
                 "tipo_transacao": execucao.tipo_transacao,
             }
-        except Exception as e:
+        except Exception:
             db.session.rollback()
             raise
 

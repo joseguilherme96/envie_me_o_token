@@ -1,5 +1,4 @@
-from flask import Blueprint, jsonify
-from src.models.ExecucaoSPSADT import ExecucaoSPSADT
+from flask import Blueprint
 from src.factory.factory_api_token_paciente import FactoryAPITokenPaciente
 from flask_jwt_extended import jwt_required
 

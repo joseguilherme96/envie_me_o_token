@@ -1,5 +1,4 @@
 from config import settings
-import requests
 
 
 def test_api_status_servidor_flask(client_app):

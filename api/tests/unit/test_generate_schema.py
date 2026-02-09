@@ -1,7 +1,5 @@
-from src import create_app
 from pathlib import Path
-from src.schema.generate_schema import generate_schema, os
-from unittest.mock import patch
+from src.schema.generate_schema import generate_schema
 from config import settings
 
 

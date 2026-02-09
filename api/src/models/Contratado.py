@@ -1,9 +1,12 @@
 from __future__ import annotations
-from typing import List
+from typing import List, TYPE_CHECKING
 from .db import db
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String, Enum
 import logging
+
+if TYPE_CHECKING:
+    from .ExecucaoSPSADT import ExecucaoSPSADT
 
 valores = [str(i) for i in range(1, 23)]
 
@@ -37,7 +40,7 @@ class Contratado(db.Model):
                 "carater_atendimento": str(contratado.carater_atendimento),
                 "tipo_atendimento": contratado.tipo_atendimento,
             }
-        except Exception as e:
+        except Exception:
             db.session.rollback()
             raise
 
@@ -79,7 +82,7 @@ class Contratado(db.Model):
 
             return execute.fetchall()
 
-        except Exception as e:
+        except Exception:
             raise
 
         finally:

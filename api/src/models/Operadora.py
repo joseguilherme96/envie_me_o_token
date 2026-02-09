@@ -1,7 +1,11 @@
 from __future__ import annotations
+from typing import TYPE_CHECKING
 from .db import db
-from sqlalchemy import Integer, String
+from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+if TYPE_CHECKING:
+    from .ExecucaoSPSADT import ExecucaoSPSADT
 
 
 class Operadora(db.Model):
@@ -28,7 +32,7 @@ class Operadora(db.Model):
 
             return execute.fetchall()
 
-        except Exception as e:
+        except Exception:
             raise
 
         finally:
@@ -43,6 +47,6 @@ class Operadora(db.Model):
                 "registro_ans": operadora.registro_ans,
                 "operadora": operadora.operadora,
             }
-        except Exception as e:
+        except Exception:
             db.session.rollback()
             raise

@@ -1,8 +1,6 @@
-from src import create_app
 from pathlib import Path
 from config import settings
 from dotenv import load_dotenv
-from src import get_db_path
 
 
 def test_deve_criar_banco_de_dados_em_memoria(app, request):

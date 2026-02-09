@@ -1,5 +1,4 @@
 from dynaconf import Dynaconf
-from pathlib import Path
 import os
 
 environment = os.getenv("ENV_FOR_DYNACONF", None)

@@ -1,5 +1,4 @@
 from pytest import fixture
-from config import settings
 import logging
 
 

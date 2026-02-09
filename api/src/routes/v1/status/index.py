@@ -2,7 +2,6 @@ from flask import Blueprint, jsonify
 from src.models.db import db
 from config import settings
 from datetime import datetime
-from src.models.db import db
 from sqlalchemy import text
 import logging
 

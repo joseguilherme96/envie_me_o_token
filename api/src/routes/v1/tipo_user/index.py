@@ -1,8 +1,5 @@
 from flask import Blueprint, jsonify, request
-from src.models.ExecucaoSPSADT import ExecucaoSPSADT
-from src.factory.factory_api_token_paciente import FactoryAPITokenPaciente
 from src.models.UserTipo import TipoUser
-from src.models.db import db
 
 tipo_user = Blueprint("tipo_user", __name__)
 

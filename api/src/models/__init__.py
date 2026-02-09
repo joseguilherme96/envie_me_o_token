@@ -1,10 +1,10 @@
-from .Transacao import Transacao
-from .Contratado import Contratado
-from .Beneficiario import Beneficiario
-from .Solicitante import Solicitante
-from .Users import Users
-from .UserTipo import TipoUser
-from .ExecucaoSPSADTProcedimento import ExecucaoSPSADTProcedimento
-from .Operadora import Operadora
-from .ExecucaoSPSADT import ExecucaoSPSADT
-from .TransacaoStatus import TransacaoStatus
+from .Transacao import Transacao as Transacao
+from .Contratado import Contratado as Contratado
+from .Beneficiario import Beneficiario as Beneficiario
+from .Solicitante import Solicitante as Solicitante
+from .Users import Users as Users
+from .UserTipo import TipoUser as TipoUser
+from .ExecucaoSPSADTProcedimento import ExecucaoSPSADTProcedimento as ExecucaoSPSADTProcedimento
+from .Operadora import Operadora as Operadora
+from .ExecucaoSPSADT import ExecucaoSPSADT as ExecucaoSPSADT
+from .TransacaoStatus import TransacaoStatus as TransacaoStatus

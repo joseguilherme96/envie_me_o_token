@@ -1,7 +1,5 @@
 from pytest import fixture
-import requests
 from config import settings
-import logging
 
 
 @fixture(scope="session")

@@ -4,7 +4,7 @@ import logging
 
 
 @fixture
-def endpoint():
+def endpoint_function():
 
     def _endpoint(route):
 

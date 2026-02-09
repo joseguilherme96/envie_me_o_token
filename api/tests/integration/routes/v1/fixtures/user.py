@@ -1,7 +1,5 @@
 from pytest import fixture
-import requests
 from config import settings
-from flask_jwt_extended import create_access_token
 
 
 @fixture(scope="session")

@@ -1,7 +1,6 @@
 from src.abstract.abstract_request_sp_sadt_data_xml import AbstractRequestSPSADTDataXML
 import logging
 from pathlib import Path
-import os
 from config import settings
 import json
 from datetime import date, time
@@ -25,13 +24,13 @@ class RequestSPSADTDataXML(AbstractRequestSPSADTDataXML):
                 logging.debug(template)
                 return template
 
-        except:
+        except Exception as e:
             raise Exception(
                 {
                     "message": "Erro ao carregar o template xml de solicitação do paciente",
                     "status_code": 500,
                 }
-            )
+            ) from e
 
     def construir_xml(self):
 
@@ -106,10 +105,10 @@ class RequestSPSADTDataXML(AbstractRequestSPSADTDataXML):
             logging.info("XML Construído com sucesso !")
             logging.debug(self.xml)
 
-        except:
+        except Exception as e:
             raise Exception(
                 {
                     "message": "Erro ao construir o xml de solicitação do paciente",
                     "status_code": 500,
                 }
-            )
+            ) from e

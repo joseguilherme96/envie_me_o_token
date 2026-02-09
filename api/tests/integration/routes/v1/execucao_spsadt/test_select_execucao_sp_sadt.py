@@ -113,6 +113,6 @@ def test_deve_retornar_dados_para_execucao_sp_sadt(
 
 def test_deve_falhar_a_busca_por_nao_ter_passado_nenhum_parametro():
 
-    with raises(TypeError) as type_error:
+    with raises(TypeError):
         api_token_paciente = APITokenPaciente()
         api_token_paciente.buscar_dados_para_execucao_sp_sadt()
