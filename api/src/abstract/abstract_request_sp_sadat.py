@@ -1,9 +1,9 @@
-from abc import ABC,abstractmethod
+from abc import ABC, abstractmethod
+
 
 class AbstractRequestSPSADAT(ABC):
-
     @abstractmethod
-    def __init__(self,uri):
+    def __init__(self, uri):
 
         self.uri = uri
 

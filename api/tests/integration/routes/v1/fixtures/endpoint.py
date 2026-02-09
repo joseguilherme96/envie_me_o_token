@@ -2,8 +2,9 @@ from pytest import fixture
 from config import settings
 import logging
 
+
 @fixture
-def endpoint():
+def endpoint_function():
 
     def _endpoint(route):
 
@@ -13,6 +14,7 @@ def endpoint():
         return endpoint
 
     yield _endpoint
+
 
 @fixture(scope="session")
 def endpoint():

@@ -1,5 +1,5 @@
 from config import settings
-import requests
+
 
 def test_api_status_servidor_flask(client_app):
 
@@ -10,5 +10,5 @@ def test_api_status_servidor_flask(client_app):
 
     assert response_json["environment"] == settings.ENV_FOR_DYNACONF
     assert response_json["db"].split("\\").pop() == settings.BD_NAME
-    assert response_json['max_connections']
-    assert response_json['opened_connetions'] or response_json['opened_connetions'] == 0
+    assert response_json["max_connections"]
+    assert response_json["opened_connetions"] or response_json["opened_connetions"] == 0

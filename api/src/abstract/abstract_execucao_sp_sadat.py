@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
-class AbstractExecucaoSPSADAT(ABC):
 
+class AbstractExecucaoSPSADAT(ABC):
     @abstractmethod
     def __init__(self):
 
@@ -16,7 +16,7 @@ class AbstractExecucaoSPSADAT(ABC):
     def validar_dados_a_enviar():
 
         pass
-    
+
     @abstractmethod
     def solicitar_autorizacao():
 

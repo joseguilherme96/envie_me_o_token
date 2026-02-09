@@ -1,15 +1,15 @@
 from pytest import fixture
-from src import create_app,db
+from src import create_app, db
 import os
 from config import settings
 import pytest
 from src import get_db_path
-from sqlalchemy  import create_engine, StaticPool
+from sqlalchemy import create_engine, StaticPool
 from sqlalchemy.exc import OperationalError as SQLAlchemyOperationalError
 import logging
 from sqlalchemy import text
 from flask_jwt_extended import create_access_token
-import logging
+
 
 @pytest.hookimpl(tryfirst=True)
 def pytest_sessionstart(session):
@@ -17,11 +17,7 @@ def pytest_sessionstart(session):
     db_url = session.config.getoption("--dburl")
 
     try:
-
-        engine = create_engine(
-            db_url,
-            poolclass=StaticPool
-        )
+        engine = create_engine(db_url, poolclass=StaticPool)
 
         connection = engine.connect()
         connection.close()
@@ -30,25 +26,26 @@ def pytest_sessionstart(session):
         logging.info("Conexão com o banco de dados feito com sucesso !")
 
         try:
-
             logging.debug(settings.BASE_URL)
 
         except Exception as e:
-
             raise Exception(e)
 
     except SQLAlchemyOperationalError as e:
-
         logging.info(f"Falha ao conectar com o banco de dados {db_url}")
         logging.debug(e)
-        pytest.exit("Os testes foram finalidados devido a falta de conexão com o banco de dados !")
+        pytest.exit(
+            "Os testes foram finalidados devido a falta de conexão com o banco de dados !"
+        )
 
     except Exception as e:
-
         logging.debug(e)
-        pytest.exit("Os testes foram finalidados devido o servidor Flask não estar configurado corretamente !")
+        pytest.exit(
+            "Os testes foram finalidados devido o servidor Flask não estar configurado corretamente !"
+        )
 
-@fixture(scope="session",autouse=True)
+
+@fixture(scope="session", autouse=True)
 def set_test_settigs(environment):
 
     os.environ["SETTINGS_FILE_FOR_DYNACONF"] = "api/settings.toml"
@@ -56,11 +53,10 @@ def set_test_settigs(environment):
     settings.configure(FORCE_ENV_FOR_DYNACONF=environment)
     logging.info(f"🌱 Ambiente Dynaconf: {environment} ativado")
 
-    value = os.environ.get("DYNACONF_USE_CLASS_FAKE",None)
+    value = os.environ.get("DYNACONF_USE_CLASS_FAKE", None)
 
     if value is None:
-    
-        pytest.exit(f"""
+        pytest.exit("""
                     
         🚨 Variável obrigatória `DYNACONF_USE_CLASS_FAKE` não definida!
 
@@ -76,44 +72,49 @@ def set_test_settigs(environment):
         """)
 
     logging.info(f"🔧 DYNACONF_USE_CLASS_FAKE = {value}")
-    
+
+
 def pytest_addoption(parser):
 
     parser.addoption(
         "--dburl",
         action="store",
         default=get_db_path(),
-        help=f"Database URL para testes, default : {get_db_path()}"
+        help=f"Database URL para testes, default : {get_db_path()}",
     )
 
     parser.addoption(
         "--dburl-scope-function",
         action="store",
         default=settings.DATABASE_URL_SCOPE_FUNCTION,
-        help=f"Database URL para testes, default : {settings.DATABASE_URL_SCOPE_FUNCTION}"
+        help=f"Database URL para testes, default : {settings.DATABASE_URL_SCOPE_FUNCTION}",
     )
 
     parser.addoption(
         "--environment",
         action="store",
         default="testing",
-        help="Ambiente para execução dos testes. Default : Testing"
+        help="Ambiente para execução dos testes. Default : Testing",
     )
+
 
 @fixture(scope="session")
 def db_url(request):
 
     return request.config.getoption("--dburl")
 
+
 @fixture(scope="function")
 def db_url_scope_function(request):
 
     return request.config.getoption("--dburl-scope-function")
 
+
 @fixture(scope="session")
 def environment(request):
 
     return request.config.getoption("--environment")
+
 
 @pytest.fixture(scope="session")
 def client_app(app):
@@ -123,12 +124,14 @@ def client_app(app):
 
     yield client
 
+
 @pytest.fixture(scope="function")
 def client_app_scope_function(app_scope_function):
 
     test_client = app_scope_function.test_client()
     client = gerar_token(test_client)
     yield client
+
 
 @fixture(scope="session")
 def app(db_url):
@@ -138,12 +141,12 @@ def app(db_url):
     app = create_app(config)
 
     with app.app_context():
-
         db.create_all()
-        
+
         yield app
 
         clear_db(db)
+
 
 @fixture(scope="function")
 def app_scope_function(db_url_scope_function):
@@ -153,26 +156,27 @@ def app_scope_function(db_url_scope_function):
     app = create_app(config)
 
     with app.app_context():
-
         db.create_all()
-        
+
         yield app
 
         clear_db(db)
 
+
 def configurar_app(db_url):
 
     logging.debug(db_url)
-    
+
     test_config = {
         "SQLALCHEMY_DATABASE_URI": db_url,
         "SQLALCHEMY_TRACK_MODIFICATIONS": False,
-        "TESTING": True
+        "TESTING": True,
     }
-    
+
     logging.debug(f"configuracoes do app : {test_config}")
 
     return test_config
+
 
 def gerar_token(client):
 
@@ -180,6 +184,7 @@ def gerar_token(client):
     client.environ_base["HTTP_AUTHORIZATION"] = f"Bearer {access_token}"
 
     return client
+
 
 def clear_db(db):
 
