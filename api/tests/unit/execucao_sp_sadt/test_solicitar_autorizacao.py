@@ -1,10 +1,12 @@
-
-from unittest.mock import patch,MagicMock
+from unittest.mock import patch, MagicMock
 from src.factory.factory_execucao_sp_sadt import FactoryExecucaoSPSADT
 from pytest import raises
 
+
 @patch("requests.post")
-def test_deve_autorizar_paciente(mock_response,template_data_xml_request,template_data_xml_response):
+def test_deve_autorizar_paciente(
+    mock_response, template_data_xml_request, template_data_xml_response
+):
 
     response = MagicMock()
     response.status_code = 201
@@ -34,9 +36,9 @@ def test_deve_autorizar_paciente(mock_response,template_data_xml_request,templat
         descricao_procedimento="ECG CONVENCIONAL DE AT",
         quantidade_solicitada="1",
         quantidade_autorizada="1",
-        hash="A551AF234DF921F8AA6CEAC4E2FE579D"
+        hash="A551AF234DF921F8AA6CEAC4E2FE579D",
     )
-    
+
     mock_response.return_value = response
 
     dados_sp_sadat = template_data_xml_request.format(
@@ -73,48 +75,52 @@ def test_deve_autorizar_paciente(mock_response,template_data_xml_request,templat
         quantidade_solicitada="",
         codigo_operadora="",
         observacao="",
-        hash=""
+        hash="",
     )
-    execucao_sp_sadt = FactoryExecucaoSPSADT.create("http://apifake.com",dados_sp_sadat)
+    execucao_sp_sadt = FactoryExecucaoSPSADT.create(
+        "http://apifake.com", dados_sp_sadat
+    )
     execucao_sp_sadt.solicitar_autorizacao()
 
     assert response.text == execucao_sp_sadt.response
 
+
 @patch("requests.post")
-def test_deve_levantar_uma_excecao_ao_nao_passar_todos_os_dados_para_execucao_sp_sadt(mock_response,template_data_xml_request,template_data_xml_response):
+def test_deve_levantar_uma_excecao_ao_nao_passar_todos_os_dados_para_execucao_sp_sadt(
+    mock_response, template_data_xml_request, template_data_xml_response
+):
 
     with raises(TypeError):
-
         response = MagicMock()
         response.status_code = 201
         response.text = template_data_xml_response.format(
-                    tipo_transacao="RESPOSTA_SOLICITACAO",
-                    sequencial_transacao="1111",
-                    data_registro="2016-12-01",
-                    hora_registro="12:00:00",
-                    registro_ans="111111",
-                    cnpj="00111222000100",
-                    padrao="3.03.01",
-                    login="TESTE001",
-                    senha="9c4c9c4c9c4c9c4c9c4c9c4c9c4c9c4c",
-                    guia_prestador="1111",
-                    guia_operadora="2222",
-                    data_autorizacao="2016-12-01",
-                    senha_autorizacao="000000001",
-                    numero_carteira="1111111111111",
-                    atendimento_rn="N",
-                    nome_beneficiario="BENEFICIARIO",
-                    codigo_prestador="1111",
-                    nome_contratado="CONTRATADO",
-                    cnes="9999999",
-                    status_solicitacao="1",
-                    codigo_tabela="22",
-                    codigo_procedimento="40101010",
-                    descricao_procedimento="ECG CONVENCIONAL DE AT",
-                    quantidade_solicitada="1",
-                    quantidade_autorizada="1",
-                    hash="A551AF234DF921F8AA6CEAC4E2FE579D"
-            )
+            tipo_transacao="RESPOSTA_SOLICITACAO",
+            sequencial_transacao="1111",
+            data_registro="2016-12-01",
+            hora_registro="12:00:00",
+            registro_ans="111111",
+            cnpj="00111222000100",
+            padrao="3.03.01",
+            login="TESTE001",
+            senha="9c4c9c4c9c4c9c4c9c4c9c4c9c4c9c4c",
+            guia_prestador="1111",
+            guia_operadora="2222",
+            data_autorizacao="2016-12-01",
+            senha_autorizacao="000000001",
+            numero_carteira="1111111111111",
+            atendimento_rn="N",
+            nome_beneficiario="BENEFICIARIO",
+            codigo_prestador="1111",
+            nome_contratado="CONTRATADO",
+            cnes="9999999",
+            status_solicitacao="1",
+            codigo_tabela="22",
+            codigo_procedimento="40101010",
+            descricao_procedimento="ECG CONVENCIONAL DE AT",
+            quantidade_solicitada="1",
+            quantidade_autorizada="1",
+            hash="A551AF234DF921F8AA6CEAC4E2FE579D",
+        )
         mock_response.return_value = template_data_xml_response
 
         dados_sp_sadat = template_data_xml_request.format(
@@ -151,7 +157,7 @@ def test_deve_levantar_uma_excecao_ao_nao_passar_todos_os_dados_para_execucao_sp
             quantidade_solicitada="",
             codigo_operadora="",
             observacao="",
-            hash=""
+            hash="",
         )
         execucao_sp_sadt = FactoryExecucaoSPSADT.create("http://apifake.com")
         execucao_sp_sadt.solicitar_autorizacao()

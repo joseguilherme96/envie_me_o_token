@@ -1,3 +1,3 @@
-from flask_migrate import Migrate,migrate
+from flask_migrate import Migrate, migrate
 
-instancia_migrate =  Migrate()
+instancia_migrate = Migrate()

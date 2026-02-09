@@ -4,15 +4,14 @@ from dotenv import load_dotenv
 from config import settings
 import logging
 
-class FactoryAPITokenPaciente:
 
-     @staticmethod
-     def create():
+class FactoryAPITokenPaciente:
+    @staticmethod
+    def create():
 
         load_dotenv(dotenv_path="api/.env")
 
         if settings.ENV_FOR_DYNACONF == "testing" and settings.USE_CLASS_FAKE:
-
             return FakeAPITokenPaciente()
 
         return APITokenPaciente()

@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
-class AbstractAPITokenPaciente(ABC):
 
+class AbstractAPITokenPaciente(ABC):
     @abstractmethod
     def __init__(self):
         pass
@@ -12,12 +12,11 @@ class AbstractAPITokenPaciente(ABC):
         pass
 
     @abstractmethod
-    def buscar_dados_para_execucao_sp_sadt(self,codigo_execucao):
+    def buscar_dados_para_execucao_sp_sadt(self, codigo_execucao):
 
         return {}
-    
+
     @abstractmethod
     def enviar_dados_para_execucao_sp_sadt():
 
         pass
-

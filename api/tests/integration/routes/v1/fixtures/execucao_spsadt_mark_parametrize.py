@@ -2,13 +2,38 @@ from pytest import fixture
 from config import settings
 import logging
 
-@fixture(scope="function")
-def execucao_spsadt_mark_parametrize(app_scope_function,endpoint,get_data_execucao_spsadt,codigo_beneficiario,codigo_contratado,codigo_solicitante,operadora_registro_ans,
-login,indicacao_clinica,indicacao_acidente,
-observacao,senha,tipo_transacao,response,client_app):
 
-    data = get_data_execucao_spsadt(codigo_beneficiario,codigo_contratado,codigo_solicitante,operadora_registro_ans,login,indicacao_clinica,indicacao_acidente,
-observacao,senha,tipo_transacao)
+@fixture(scope="function")
+def execucao_spsadt_mark_parametrize(
+    app_scope_function,
+    endpoint,
+    get_data_execucao_spsadt,
+    codigo_beneficiario,
+    codigo_contratado,
+    codigo_solicitante,
+    operadora_registro_ans,
+    login,
+    indicacao_clinica,
+    indicacao_acidente,
+    observacao,
+    senha,
+    tipo_transacao,
+    response,
+    client_app,
+):
+
+    data = get_data_execucao_spsadt(
+        codigo_beneficiario,
+        codigo_contratado,
+        codigo_solicitante,
+        operadora_registro_ans,
+        login,
+        indicacao_clinica,
+        indicacao_acidente,
+        observacao,
+        senha,
+        tipo_transacao,
+    )
 
     response = client_app.post(endpoint("execucao_spsadt"), json=data)
 

@@ -1,5 +1,6 @@
 from pytest import fixture
 
+
 @fixture
 def template_data_xml_request():
 
@@ -86,7 +87,9 @@ def template_data_xml_request():
 
     """
 
+
 import pytest
+
 
 @pytest.fixture
 def template_data_xml_response():
