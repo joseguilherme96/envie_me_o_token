@@ -1,15 +1,10 @@
-name: Testes de homologação TISS (execução manual)
+name: Testes de homologação TISS
 
 on:
   workflow_dispatch:
-    inputs:
-      confirm:
-        description: "Digite AUTORIZAR para executar testes de homologação"
-        required: true
 
 jobs:
   workflow-dispatch:
-    if: github.event.inputs.confirm == 'AUTORIZAR'
     runs-on: ubuntu-latest
 
     env:
@@ -47,12 +42,12 @@ jobs:
       URL_EXECUCAO_SP_SADT_HOMOLOGACAO: ${{ secrets.URL_EXECUCAO_SP_SADT_HOMOLOGACAO }}
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v5
         with:
-          python-version: "3.13"
+          python-version: "3.12"
 
       - name: Upgrade pip
         run: python -m pip install --upgrade pip
