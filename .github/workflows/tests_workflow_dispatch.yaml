@@ -1,6 +1,6 @@
-name: Testes de homologação TISS
+name: Testes com acionamento Manual
 
-on:
+on: 
   workflow_dispatch:
 
 jobs:
