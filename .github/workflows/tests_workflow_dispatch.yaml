@@ -1,0 +1,60 @@
+name: Homologacao TISS Acionamento Manual
+
+on:
+  workflow_dispatch:
+
+jobs:
+  homologacao:
+    runs-on: ubuntu-latest
+
+    env:
+      ENV_FOR_DYNACONF: testing
+      DYNACONF_USE_CLASS_FAKE: false
+
+      TIPO_TRANSACAO: ${{ secrets.TIPO_TRANSACAO }}
+      SEQUENCIAL_TRANSACAO: ${{ secrets.SEQUENCIAL_TRANSACAO }}
+      DATA: ${{ secrets.DATA }}
+      HORA: ${{ secrets.HORA }}
+      CODIGO_PRESTADOR_NA_OPERADORA: ${{ secrets.CODIGO_PRESTADOR_NA_OPERADORA }}
+      REGISTRO_ANS: ${{ secrets.REGISTRO_ANS }}
+      PADRAO: ${{ secrets.PADRAO }}
+      NUMERO_GUIA_PRESTADOR: ${{ secrets.NUMERO_GUIA_PRESTADOR }}
+      TIPO_ETAPA_AUTORIZACAO: ${{ secrets.TIPO_ETAPA_AUTORIZACAO }}
+      NUMERO_CARTEIRA: ${{ secrets.NUMERO_CARTEIRA }}
+      ATENDIMENTO_RN: ${{ secrets.ATENDIMENTO_RN }}
+      NOME_BENEFICIARIO: ${{ secrets.NOME_BENEFICIARIO }}
+      NOME_CONTRATADO: ${{ secrets.NOME_CONTRATADO }}
+      NOME_PROFISSIONAL: ${{ secrets.NOME_PROFISSIONAL }}
+      CONSELHO_PROFISSIONAL: ${{ secrets.CONSELHO_PROFISSIONAL }}
+      NUMERO_CONSELHO_PROFISSIONAL: ${{ secrets.NUMERO_CONSELHO_PROFISSIONAL }}
+      UF: ${{ secrets.UF }}
+      CBOS: ${{ secrets.CBOS }}
+      CARATER_ATENDIMENTO: ${{ secrets.CARATER_ATENDIMENTO }}
+      DATA_SOLICITACAO: ${{ secrets.DATA_SOLICITACAO }}
+      INDICACAO_CLINICA: ${{ secrets.INDICACAO_CLINICA }}
+      CODIGO_TABELA: ${{ secrets.CODIGO_TABELA }}
+      CODIGO_PROCEDIMENTO: ${{ secrets.CODIGO_PROCEDIMENTO }}
+      DESCRICAO_PROCEDIMENTO: ${{ secrets.DESCRICAO_PROCEDIMENTO }}
+      QUANTIDADE_SOLICITADA: ${{ secrets.QUANTIDADE_SOLICITADA }}
+      CNES: ${{ secrets.CNES }}
+      OBSERVACAO: ${{ secrets.OBSERVACAO }}
+      HASH: ${{ secrets.HASH }}
+      URL_EXECUCAO_SP_SADT_HOMOLOGACAO: ${{ secrets.URL_EXECUCAO_SP_SADT_HOMOLOGACAO }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r api/requirements.txt
+
+      - name: Run homologation tests
+        run: pytest -m test_workflow_dispatch
+

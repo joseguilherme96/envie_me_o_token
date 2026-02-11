@@ -11,7 +11,7 @@ class RequestSPSADAT(AbstractRequestSPSADAT):
 
         try:
             response = requests.post(self.uri, data=data)
-            return [response.status_code, response.text]
+            return response.status_code, response.text
 
         except Exception as e:
             raise e

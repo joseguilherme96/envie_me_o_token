@@ -48,9 +48,15 @@ def pytest_sessionstart(session):
 @fixture(scope="session", autouse=True)
 def set_test_settigs(environment):
 
-    os.environ["SETTINGS_FILE_FOR_DYNACONF"] = "api/settings.toml"
-    os.environ["ENV_FOR_DYNACONF"] = environment
-    settings.configure(FORCE_ENV_FOR_DYNACONF=environment)
+    settings.configure(
+        settings_files=[
+            "api/settings.toml",
+            "api/secrets.toml",
+        ],
+        environments=True,
+        force_env=environment,
+    )
+
     logging.info(f"🌱 Ambiente Dynaconf: {environment} ativado")
 
     value = os.environ.get("DYNACONF_USE_CLASS_FAKE", None)
