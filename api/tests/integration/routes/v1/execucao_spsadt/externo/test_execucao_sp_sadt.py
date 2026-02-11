@@ -47,7 +47,7 @@ def test_deve_autorizar_paciente():
         hash=settings.HASH,
     )
 
-    api_terceiro = RequestSPSADAT(settings.DYNACONF_URL_EXECUCAO_SP_SADT_HOMOLOGACAO)
+    api_terceiro = RequestSPSADAT(settings.URL_EXECUCAO_SP_SADT_HOMOLOGACAO)
     status_code, text = api_terceiro.executar_request_sp_sadt(data=xml_format)
 
     logging.debug(f"Response: {text}")
