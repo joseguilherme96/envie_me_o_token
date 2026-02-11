@@ -11,7 +11,7 @@ jobs:
       ENV_FOR_DYNACONF: testing
       DYNACONF_USE_CLASS_FAKE: false
 
-      TIPO_TRANSACAO: ${{ secrets.TIPO_TRANSACAO }}
+      DYNACONF_TIPO_TRANSACAO: ${{ secrets.TIPO_TRANSACAO }}
       SEQUENCIAL_TRANSACAO: ${{ secrets.SEQUENCIAL_TRANSACAO }}
       DATA: ${{ secrets.DATA }}
       HORA: ${{ secrets.HORA }}
