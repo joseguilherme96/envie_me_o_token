@@ -8,7 +8,7 @@ from src.rpa.request_execucao_sp_sadat import RequestSPSADAT
 from pytest import mark
 
 
-@mark.test_workflow_dispatch
+@mark.homologacao
 def test_deve_autorizar_paciente():
 
     template = Path(f"{settings.BASE_PATH_MODELO_TEMPLATE}/data_request_sp_sadt_v1.xml")
