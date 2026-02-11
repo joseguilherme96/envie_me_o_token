@@ -1,4 +1,4 @@
-name: Testes Automatizados com Acionamento Manual
+name: Homologacao
 
 on:
   workflow_dispatch:
@@ -6,6 +6,7 @@ on:
 jobs:
   homologacao:
     runs-on: ubuntu-latest
+    environment: homologacao
 
     env:
       ENV_FOR_DYNACONF: testing
@@ -55,6 +56,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r api/requirements.txt
 
+      - name: Debug Secret
+        run: |
+          if [ -z "$DYNACONF_TIPO_TRANSACAO" ]; then
+          echo "TIPO_TRANSACAO ESTA VAZIO"
+          else
+          echo "TIPO_TRANSACAO ESTA DEFINIDO"
+          fi
       - name: Run homologation tests
-        run: pytest -m test_workflow_dispatch
+        run: pytest -m homologacao
 
