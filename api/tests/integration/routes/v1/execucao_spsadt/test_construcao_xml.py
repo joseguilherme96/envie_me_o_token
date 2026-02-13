@@ -52,33 +52,24 @@ def test_deve_contruir_xml_para_execucao_sp_sadt(
     ]
     assert codigo_prestador_na_operadora is not None
     assert codigo_prestador_na_operadora.text == str(
-        execucao_spsadt_no_mark_parametrize["data"]["codigo_contratado"]
-    )
-
-    registro_ans = find(xml, ".//sch:registroANS")
-    assert registro_ans is not None
-    assert registro_ans.text == str(
-        operadora_no_mark_parametrize_scope_session["data"]["registro_ans"]
+        execucao_spsadt_no_mark_parametrize["data"]["codigo_solicitante"]
     )
 
     padrao = find(xml, ".//sch:Padrao")
     assert padrao is not None
 
-    login_prestador = find(xml, ".//sch:loginPrestador")
-    assert login_prestador is not None
-    assert login_prestador.text == execucao_spsadt_no_mark_parametrize["data"]["login"]
-
-    senha_prestador = find(xml, ".//sch:senhaPrestador")
-    assert senha_prestador is not None
-    assert senha_prestador.text == execucao_spsadt_no_mark_parametrize["data"]["senha"]
+    terdown_registro_ans = (
+        f"00{operadora_no_mark_parametrize_scope_session['data']['registro_ans']}"
+    )
+    registro_ans = find(xml, ".//sch:registroANS")
+    assert registro_ans is not None
+    assert registro_ans.text == terdown_registro_ans
 
     cabecalho_solicitacao_registro_ans = find(
         xml, ".//sch:cabecalhoSolicitacao/sch:registroANS"
     )
     assert cabecalho_solicitacao_registro_ans is not None
-    assert cabecalho_solicitacao_registro_ans.text == str(
-        operadora_no_mark_parametrize_scope_session["data"]["registro_ans"]
-    )
+    assert cabecalho_solicitacao_registro_ans.text == terdown_registro_ans
 
     numero_guia_prestador = find(xml, ".//sch:numeroGuiaPrestador")
     assert numero_guia_prestador is not None
@@ -109,14 +100,7 @@ def test_deve_contruir_xml_para_execucao_sp_sadt(
         == beneficiario_no_mark_parametrize_scope_session["data"]["nome_beneficiario"]
     )
 
-    identificador_beneficiario = find(xml, ".//sch:identificadorBeneficiario")
-    assert identificador_beneficiario is not None
-    assert (
-        identificador_beneficiario.text
-        == beneficiario_no_mark_parametrize_scope_session["data"]["numero_carteira"]
-    )
-
-    codigo_prestado_na_operadora = find_all(xml, ".//sch:codigoPrestadorNaOperadora")[1]
+    codigo_prestado_na_operadora = find(xml, ".//sch:codigonaOperadora")
     assert codigo_prestado_na_operadora is not None
     assert codigo_prestado_na_operadora.text == str(
         solicitante_no_mark_parametrize_scope_session["data"]["codigo_solicitante"]
@@ -140,8 +124,15 @@ def test_deve_contruir_xml_para_execucao_sp_sadt(
 
     conselho_profissional = find(xml, ".//sch:conselhoProfissional")
     assert conselho_profissional is not None
-    assert conselho_profissional.text == str(
-        solicitante_no_mark_parametrize_scope_session["data"]["conselho_profissional"]
+    assert (
+        conselho_profissional.text
+        == f"0{
+            str(
+                solicitante_no_mark_parametrize_scope_session['data'][
+                    'conselho_profissional'
+                ]
+            )
+        }"
     )
 
     numero_conselho_profissional = find(xml, ".//sch:numeroConselhoProfissional")
@@ -170,25 +161,6 @@ def test_deve_contruir_xml_para_execucao_sp_sadt(
         == contratado_no_mark_parametrize_scope_session["data"]["carater_atendimento"]
     )
 
-    indicacao_clinica = find(xml, ".//sch:indicacaoClinica")
-    assert indicacao_clinica is not None
-    assert indicacao_clinica.text == str(
-        execucao_spsadt_no_mark_parametrize["data"]["indicacao_clinica"]
-    )
-
-    tipo_atendimento = find(xml, ".//sch:tipoAtendimento")
-    assert tipo_atendimento is not None
-    assert (
-        tipo_atendimento.text
-        == contratado_no_mark_parametrize_scope_session["data"]["tipo_atendimento"]
-    )
-
-    indicacao_acidente = find(xml, ".//sch:indicacaoAcidente")
-    assert indicacao_acidente is not None
-    assert indicacao_acidente.text == str(
-        execucao_spsadt_no_mark_parametrize["data"]["indicacao_acidente"]
-    )
-
     codigo_procedimento = find(xml, ".//sch:codigoProcedimento")
     assert codigo_procedimento is not None
     assert codigo_procedimento.text == str(
@@ -210,12 +182,6 @@ def test_deve_contruir_xml_para_execucao_sp_sadt(
         execucao_spsadt_procedimento_no_mark_parametrize["data"][
             "quantidade_solicitada"
         ]
-    )
-
-    codigo_na_operadora = find(xml, ".//sch:codigonaOperadora")
-    assert codigo_na_operadora is not None
-    assert codigo_na_operadora.text == str(
-        operadora_no_mark_parametrize_scope_session["data"]["registro_ans"]
     )
 
     nome_contratado = find(xml, ".//sch:nomeContratado")

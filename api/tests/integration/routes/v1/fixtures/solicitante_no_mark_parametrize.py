@@ -28,12 +28,12 @@ def solicitante_no_mark_parametrize_scope_session(client_app):
     response = client_app.post(
         f"{settings.BASE_URL}/solicitante",
         json={
-            "codigo_solicitante": 2323,
+            "codigo_solicitante": settings.CODIGO_PRESTADOR_NA_OPERADORA,
             "profissional_solicitante": "Sonia",
-            "conselho_profissional": "1",
+            "conselho_profissional": settings.CONSELHO_PROFISSIONAL,
             "numero_conselho_profissional": "12121",
-            "uf": 1,
-            "cbos": 1,
+            "uf": settings.UF,
+            "cbos": settings.CBOS,
         },
     )
     response_json = response.json

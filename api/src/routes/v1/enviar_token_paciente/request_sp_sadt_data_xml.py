@@ -17,7 +17,9 @@ class RequestSPSADTDataXML(AbstractRequestSPSADTDataXML):
 
         try:
             # Importar template
-            template = Path(settings.path_modelo_solicitacao_xml)
+            template = (
+                Path(settings.BASE_PATH_MODELO_TEMPLATE) / "data_request_sp_sadt_v1.xml"
+            )
 
             with open(template, "r"):
                 template = template.read_text()
@@ -45,16 +47,16 @@ class RequestSPSADTDataXML(AbstractRequestSPSADTDataXML):
                 hora_registro_transacao=time(hour=15, minute=30, second=0).strftime(
                     "%H:%M:%S"
                 ),
-                codigo_prestador_na_operadora=self.dados_sp_sadt_db[
-                    "codigo_contratado"
-                ],
-                registro_ANS=self.dados_sp_sadt_db["operadora"]["registro_ans"],
+                codigo_prestador_na_operadora=f"{
+                    self.dados_sp_sadt_db['codigo_solicitante']
+                }",
+                registro_ANS=f"00{self.dados_sp_sadt_db['operadora']['registro_ans']}",
                 numero_guia_operadora=self.dados_sp_sadt_db["codigo_execucao"],
                 padrao="3.05.00",
                 login_prestador=self.dados_sp_sadt_db["login"],
                 senha_prestador=self.dados_sp_sadt_db["senha"],
                 numero_guia_prestador=self.dados_sp_sadt_db["codigo_execucao"],
-                tipo_etapa_autorizacao="1",
+                tipo_etapa_autorizacao="2",
                 numero_carteira=self.dados_sp_sadt_db["codigo_beneficiario"],
                 atendimento_rn="S"
                 if self.dados_sp_sadt_db["beneficiario"]["atendimento_rn"]
@@ -62,18 +64,14 @@ class RequestSPSADTDataXML(AbstractRequestSPSADTDataXML):
                 nome_beneficiario=self.dados_sp_sadt_db["beneficiario"][
                     "nome_beneficiario"
                 ],
-                identificador_beneficiario=self.dados_sp_sadt_db["codigo_beneficiario"],
-                codigo_prestado_na_operadora=self.dados_sp_sadt_db[
-                    "codigo_solicitante"
-                ],
                 nome_contratado=self.dados_sp_sadt_db["contratado"]["nome_contratado"],
                 cnes="1",
                 nome_profissional=self.dados_sp_sadt_db["solicitante"][
                     "profissional_solicitante"
                 ],
-                conselho_profissional=self.dados_sp_sadt_db["solicitante"][
-                    "conselho_profissional"
-                ],
+                conselho_profissional=f"0{
+                    self.dados_sp_sadt_db['solicitante']['conselho_profissional']
+                }",
                 numero_conselho_profissional=self.dados_sp_sadt_db["solicitante"][
                     "numero_conselho_profissional"
                 ],
@@ -84,10 +82,7 @@ class RequestSPSADTDataXML(AbstractRequestSPSADTDataXML):
                 ],
                 data_solicitacao=date.today().strftime("%Y-%m-%d"),
                 indicacao_clinica=self.dados_sp_sadt_db["indicacao_clinica"],
-                tipo_atendimento=self.dados_sp_sadt_db["contratado"][
-                    "tipo_atendimento"
-                ],
-                indicacao_acidente=self.dados_sp_sadt_db["indicacao_acidente"],
+                codigo_tabela="22",
                 codigo_procedimento=self.dados_sp_sadt_db[
                     "execucao_spsadt_procedimento"
                 ][0]["codigo_procedimento"],

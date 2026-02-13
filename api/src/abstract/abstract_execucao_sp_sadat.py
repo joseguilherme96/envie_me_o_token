@@ -13,7 +13,7 @@ class AbstractExecucaoSPSADAT(ABC):
         pass
 
     @abstractmethod
-    def validar_dados_a_enviar():
+    def validar_xml_contra_xsd():
 
         pass
 
